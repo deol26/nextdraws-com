@@ -3,1580 +3,998 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎰 All Future Draws Generator</title>
+    <title>US Mega Millions Combinations Generator - 1-70 Choose 5</title>
     <style>
-        :root {
-            --primary: #9c27b0;
-            --secondary: #ff9800;
-            --accent: #f44336;
-            --success: #4caf50;
-            --gold: #ffeb3b;
-            --light: #f5f5f5;
-            --dark: #333;
-            --blue: #2196f3;
-            --green: #8bc34a;
-            --purple: #673ab7;
-            --teal: #009688;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, 
-                #ff0080 0%, 
-                #ff8c00 25%, 
-                #40e0d0 50%, 
-                #ff0080 75%, 
-                #ff8c00 100%);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+        body { 
+            font-family: 'Arial', sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
             min-height: 100vh;
-            color: #333;
         }
-        
-        @keyframes gradientBG {
-            0% { background-position: 0% 50% }
-            50% { background-position: 100% 50% }
-            100% { background-position: 0% 50% }
+        .container { 
+            max-width: 1300px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
+            border: 5px solid #ff6b6b;
         }
-        
-        .main-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* Header Styles */
-        .main-header {
-            text-align: center;
-            padding: 60px 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            margin-bottom: 50px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            border: 8px solid var(--gold);
+        .mega-header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); 
+            color: white; 
+            padding: 30px; 
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+            border: 3px solid #ffd700;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, 
-                rgba(255,255,255,0.95) 0%,
-                rgba(255,248,220,0.95) 100%);
         }
-        
-        .main-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 8px;
-            background: linear-gradient(90deg, 
-                #009639 0%, #009639 20%,
-                #ce1126 20%, #ce1126 40%,
-                #0c2461 40%, #0c2461 60%,
-                #ff6b6b 60%, #ff6b6b 80%,
-                #ff0000 80%, #ff0000 100%);
+        .mega-header h1 { 
+            margin: 0; 
+            font-size: 42px; 
+            color: #ffd700; 
+            text-shadow: 3px 3px 0 #0c2461;
+            letter-spacing: 1.5px;
         }
-        
-        .main-header::after {
-            content: '🌍🎰💰';
-            position: absolute;
-            bottom: -40px;
-            right: -40px;
-            font-size: 200px;
-            opacity: 0.1;
-            transform: rotate(15deg);
+        .mega-subtitle { 
+            color: #ffd700; 
+            font-weight: 700; 
+            font-size: 22px; 
+            margin: 15px 0; 
         }
-        
-        .main-header h1 {
-            font-size: 56px;
-            color: transparent;
-            background: linear-gradient(135deg, 
-                var(--purple), 
-                var(--accent), 
-                var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            margin-bottom: 20px;
-            text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
-        
-        .main-header p {
-            font-size: 22px;
-            color: #666;
-            max-width: 900px;
-            margin: 0 auto 30px;
-            line-height: 1.7;
-            font-weight: 500;
-        }
-        
-        /* Rotating Slogans */
-        .slogan-rotator {
-            height: 60px;
-            overflow: hidden;
-            margin: 30px auto;
-            max-width: 800px;
-        }
-        
-        .slogan-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: sloganSlide 20s infinite;
-        }
-        
-        @keyframes sloganSlide {
-            0%, 100% { transform: translateY(0); }
-            5% { transform: translateY(0); }
-            15% { transform: translateY(-60px); }
-            25% { transform: translateY(-120px); }
-            35% { transform: translateY(-180px); }
-            45% { transform: translateY(-240px); }
-            55% { transform: translateY(-300px); }
-            65% { transform: translateY(-360px); }
-            75% { transform: translateY(-420px); }
-            85% { transform: translateY(-480px); }
-            95% { transform: translateY(-540px); }
-        }
-        
-        .slogan {
-            font-size: 26px;
-            font-weight: 900;
-            color: transparent;
-            background: linear-gradient(135deg, var(--purple), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 20px;
-        }
-        
-        .pricing-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, 
-                var(--gold) 0%, 
-                #ff9800 50%, 
-                var(--accent) 100%);
+        .jackpot-display {
+            background: #0c2461;
             color: white;
-            padding: 15px 35px;
-            border-radius: 40px;
-            font-weight: 900;
-            font-size: 28px;
-            margin: 20px 0;
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
-            border: 4px solid white;
-            animation: pulseGlow 2s infinite;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 15px;
+            border: 3px solid #ffd700;
+            font-size: 18px;
+            font-weight: 700;
         }
-        
-        @keyframes pulseGlow {
+        .info-box { 
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%); 
+            color: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin-bottom: 25px; 
+            border: 3px solid #ff6b6b;
+        }
+        .info-box h3 { 
+            margin-top: 0; 
+            color: #ffd700; 
+            font-size: 24px;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 10px;
+        }
+        .combinations { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+            gap: 15px; 
+            margin-top: 30px; 
+        }
+        .combo { 
+            padding: 15px; 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
+            border: 3px solid #0c2461; 
+            border-radius: 10px; 
+            font-family: 'Courier New', monospace; 
+            position: relative; 
+            transition: all 0.3s; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            font-weight: 600;
+        }
+        .combo:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+            border-color: #ff6b6b; 
+            background: linear-gradient(135deg, #ffffff 0%, #f1f3f5 100%);
+        }
+        .combo.searched { 
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); 
+            border-left: 6px solid #28a745; 
+        }
+        .combo.searched::before { 
+            content: "🔍"; 
+            position: absolute; 
+            left: -10px; 
+            top: -10px; 
+            font-size: 16px; 
+            background: #28a745; 
+            border-radius: 50%; 
+            width: 25px; 
+            height: 25px; 
+            text-align: center; 
+            line-height: 25px; 
+            border: 2px solid white;
+        }
+        .combo.exact-match { 
+            background: linear-gradient(135deg, #ffd700 0%, #ffcc00 100%); 
+            color: #0c2461; 
+            border: 4px solid #ff6b6b; 
+            animation: jackpot 1.5s infinite; 
+            font-weight: 700;
+        }
+        @keyframes jackpot {
             0%, 100% { 
-                box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+                transform: scale(1); 
+                box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); 
             }
             50% { 
-                box-shadow: 0 10px 35px rgba(255, 107, 107, 0.8), 
-                          0 0 20px rgba(255, 107, 107, 0.6);
+                transform: scale(1.05); 
+                box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); 
             }
         }
-        
-        /* Premium Names Badges */
-        .premium-names {
-            display: flex;
-            flex-wrap: wrap;
+        .controls { 
+            margin: 30px 0; 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 15px; 
             justify-content: center;
-            gap: 20px;
-            margin: 50px 0;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            border: 3px solid var(--gold);
         }
-        
-        .premium-badge {
-            background: linear-gradient(135deg, var(--purple), var(--blue));
-            color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
+        button { 
+            padding: 14px 22px; 
+            cursor: pointer; 
+            border: none; 
+            border-radius: 10px; 
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%); 
+            color: white; 
             font-weight: 700;
-            font-size: 18px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            animation: badgePulse 3s infinite;
-            text-align: center;
-        }
-        
-        .premium-badge:nth-child(2) {
-            background: linear-gradient(135deg, var(--accent), #ff9800);
-            animation-delay: 0.5s;
-        }
-        
-        .premium-badge:nth-child(3) {
-            background: linear-gradient(135deg, var(--success), var(--teal));
-            animation-delay: 1s;
-        }
-        
-        .premium-badge:nth-child(4) {
-            background: linear-gradient(135deg, #ff4081, #7b1fa2);
-            animation-delay: 1.5s;
-        }
-        
-        .premium-badge:nth-child(5) {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
-            animation-delay: 2s;
-        }
-        
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        /* Slogan Grid */
-        .slogan-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 50px 0;
-        }
-        
-        .slogan-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-top: 5px solid;
-            transition: all 0.3s ease;
-        }
-        
-        .slogan-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-        
-        .slogan-card:nth-child(1) {
-            border-top-color: var(--purple);
-        }
-        
-        .slogan-card:nth-child(2) {
-            border-top-color: var(--accent);
-        }
-        
-        .slogan-card:nth-child(3) {
-            border-top-color: var(--success);
-        }
-        
-        .slogan-card:nth-child(4) {
-            border-top-color: var(--blue);
-        }
-        
-        .slogan-card p {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--dark);
-        }
-        
-        /* Countries Grid */
-        .countries-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 40px;
-            margin-bottom: 70px;
-        }
-        
-        .country-card {
-            background: white;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-        }
-        
-        .country-card:hover {
-            transform: translateY(-20px) scale(1.03);
-            box-shadow: 0 35px 70px rgba(0,0,0,0.4);
-        }
-        
-        .country-card:hover .country-header {
-            transform: scale(1.05);
-        }
-        
-        .country-header {
-            padding: 40px;
-            text-align: center;
-            color: white;
-            position: relative;
-            transition: transform 0.5s ease;
-            min-height: 280px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .country-header h2 {
-            font-size: 42px;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .country-header .trophy {
-            font-size: 50px;
-            animation: bounce 2s infinite;
-            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
-        }
-        
-        .country-flag {
-            font-size: 100px;
-            margin-bottom: 20px;
-            filter: drop-shadow(3px 3px 3px rgba(0,0,0,0.3));
-        }
-        
-        .country-header p {
-            font-size: 24px;
-            font-weight: 700;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            justify-content: center;
-        }
-        
-        .country-header .mini-flag {
-            font-size: 30px;
-            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
-        }
-        
-        .country-details {
-            padding: 35px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            min-height: 350px;
-        }
-        
-        .country-details p {
-            margin-bottom: 20px;
-            color: #555;
-            line-height: 1.7;
-            font-size: 17px;
-        }
-        
-        .lottery-info {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-            border-left: 8px solid;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        
-        .lottery-info h4 {
-            color: var(--dark);
-            margin-bottom: 15px;
-            font-size: 20px;
-            font-weight: 700;
-        }
-        
-        .subscribe-btn {
-            display: block;
-            width: 100%;
-            padding: 22px;
-            background: linear-gradient(135deg, var(--success), #2e7d32);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 24px;
-            font-weight: 900;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            text-decoration: none;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-        
-        .subscribe-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .subscribe-btn:hover::before {
-            left: 100%;
-        }
-        
-        .subscribe-btn:hover {
-            background: linear-gradient(135deg, #2e7d32, #1b5e20);
-            transform: scale(1.03);
-            box-shadow: 0 15px 30px rgba(46, 125, 50, 0.4);
-        }
-        
-        /* NEW ACCESS TOOL BUTTON */
-        .access-tool-btn {
-            display: block;
-            width: 100%;
-            padding: 22px;
-            background: linear-gradient(135deg, var(--blue), #1565c0);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 24px;
-            font-weight: 900;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            text-decoration: none;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .access-tool-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .access-tool-btn:hover::before {
-            left: 100%;
-        }
-        
-        .access-tool-btn:hover {
-            background: linear-gradient(135deg, #1565c0, #0d47a1);
-            transform: scale(1.03);
-            box-shadow: 0 15px 30px rgba(21, 101, 192, 0.4);
-        }
-        
-        .price-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--gold), #ff9800);
-            color: var(--dark);
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: 900;
-            margin-top: 15px;
-            border: 3px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            font-size: 22px;
-        }
-        
-        /* Country-specific colors */
-        .uae-card .country-header {
-            background: linear-gradient(135deg, #009639 0%, #ce1126 50%, #ffd700 100%);
-            border-left: 8px solid #ffd700;
-        }
-        
-        .uae-card .lottery-info {
-            border-left-color: #009639;
-        }
-        
-        .usa-card .country-header {
-            background: linear-gradient(135deg, #0c2461 0%, #1e3799 50%, #ff6b6b 100%);
-            border-left: 8px solid #ffd700;
-        }
-        
-        .usa-card .lottery-info {
-            border-left-color: #0c2461;
-        }
-        
-        .europe-card .country-header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #ff6b6b 100%);
-            border-left: 8px solid #ffd700;
-        }
-        
-        .europe-card .lottery-info {
-            border-left-color: #1e3c72;
-        }
-        
-        .australia-card .country-header {
-            background: linear-gradient(135deg, #012169 0%, #E4002B 50%, #ffd700 100%);
-            border-left: 8px solid #ffd700;
-        }
-        
-        .australia-card .lottery-info {
-            border-left-color: #012169;
-        }
-        
-        /* Features Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
-        }
-        
-        .feature-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 3px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, 
-                var(--purple), var(--blue), var(--teal));
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: var(--secondary);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.25);
-        }
-        
-        .feature-card .icon {
-            font-size: 60px;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .feature-card h3 {
-            color: var(--dark);
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: 700;
-        }
-        
-        /* Access Keys Section */
-        .access-keys {
-            text-align: center;
-            padding: 50px 30px;
-            background: linear-gradient(135deg, var(--purple), var(--accent));
-            border-radius: 25px;
-            margin: 60px 0;
-            color: white;
-        }
-        
-        .access-keys h2 {
-            font-size: 36px;
-            margin-bottom: 30px;
-        }
-        
-        .keys-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .key-badge {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 12px 25px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 18px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        /* Security Badges */
-        .security-badges {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-        
-        .security-badge {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            min-width: 220px;
-            transition: all 0.3s ease;
-        }
-        
-        .security-badge:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-        
-        .security-badge-icon {
-            font-size: 32px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .security-badge:nth-child(1) .security-badge-icon {
-            background: linear-gradient(135deg, #28a745, #218838);
-            color: white;
-        }
-        
-        .security-badge:nth-child(2) .security-badge-icon {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-        }
-        
-        .security-badge:nth-child(3) .security-badge-icon {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-        }
-        
-        /* Footer */
-        .main-footer {
-            text-align: center;
-            padding: 50px 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            margin-top: 70px;
-            color: #666;
-            border: 5px solid var(--gold);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .main-footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, 
-                var(--purple), var(--blue), var(--teal), var(--success), var(--accent));
-        }
-        
-        .main-footer h3 {
-            font-size: 32px;
-            color: var(--purple);
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
-        
-        /* Header Particles */
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-        
-        .particle {
-            position: absolute;
-            font-size: 20px;
-            animation: float 15s linear infinite;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-
-        /* SECURE AUTHENTICATION GATEWAY STYLES */
-        .auth-gateway {
-            display: none;
-            margin: 20px 0;
-            padding: 25px;
-            border-radius: 15px;
-            color: white;
-            border: 3px solid #ffd700;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .auth-gateway.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* EuroDreams specific auth */
-        .eurodreams-auth {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        }
-
-        /* Mega Millions specific auth */
-        .megamillions-auth {
-            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .auth-header h3 {
-            font-size: 24px;
-            margin-bottom: 8px;
-            color: white;
-        }
-
-        .auth-header p {
             font-size: 16px;
-            opacity: 0.9;
-        }
-
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .auth-input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .auth-input-group label {
-            font-size: 14px;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .auth-input {
-            padding: 14px 16px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 10px;
-            font-size: 16px;
-            background: rgba(255,255,255,0.1);
-            color: white;
             transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(12, 36, 97, 0.3);
+            border: 2px solid #ff6b6b;
         }
-
-        .auth-input:focus {
-            outline: none;
-            border-color: #ffd700;
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
-            background: rgba(255,255,255,0.15);
+        button:hover { 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
         }
-
-        .auth-input::placeholder {
-            color: rgba(255,255,255,0.6);
+        button:active { 
+            transform: translateY(0); 
         }
-
-        .auth-submit-btn {
-            padding: 16px;
-            background: linear-gradient(135deg, #ffd700, #ff9800);
+        .page-info { 
+            margin: 25px 0; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
+            border-radius: 12px; 
+            font-weight: 700;
+            border: 3px solid #0c2461;
             color: #0c2461;
-            border: none;
-            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .search-container { 
+            margin: 30px 0; 
+            padding: 30px; 
+            background: linear-gradient(135deg, #ffd700 0%, #ffcc00 100%); 
+            border-radius: 15px; 
+            color: #0c2461;
+            border: 4px solid #0c2461;
+        }
+        .search-container h3 { 
+            margin-top: 0; 
+            color: #0c2461; 
+            font-size: 28px;
+            text-shadow: 2px 2px 0 rgba(255,255,255,0.5);
+        }
+        .search-input { 
+            padding: 15px; 
+            width: 300px; 
+            margin-right: 15px; 
+            border: 3px solid #0c2461; 
+            border-radius: 10px; 
+            font-size: 18px;
+            background: white;
+            color: #0c2461;
+            font-weight: 600;
+        }
+        .search-result { 
+            margin-top: 25px; 
+            padding: 20px; 
+            border-radius: 10px; 
+            font-weight: 600; 
             font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
+            border: 3px solid;
+        }
+        .search-result.info { 
+            background: rgba(12, 36, 97, 0.9); 
+            color: white; 
+            border-color: #ffd700; 
+        }
+        .search-result.not-found { 
+            background: rgba(255, 255, 255, 0.95); 
+            color: #c62828; 
+            border-color: #ef5350; 
+        }
+        .stats { 
+            background: linear-gradient(135deg, #ffd700 0%, #ffcc00 100%); 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin: 25px 0; 
+            border: 3px solid #0c2461;
+            color: #0c2461;
+        }
+        .stats h3 { 
+            margin-top: 0; 
+            color: #0c2461; 
+            font-size: 26px;
+            border-bottom: 3px solid #0c2461;
+            padding-bottom: 10px;
+        }
+        .stats p {
+            font-size: 18px;
+            margin: 12px 0;
+        }
+        .navigation-buttons { 
+            margin-top: 20px; 
+            display: flex; 
+            gap: 15px; 
+            flex-wrap: wrap; 
+            justify-content: center;
+        }
+        .search-history { 
+            margin-top: 30px; 
+            padding: 25px; 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
+            border-radius: 12px; 
+            border: 3px solid #0c2461;
+        }
+        .history-item { 
+            padding: 15px; 
+            margin: 12px 0; 
+            background: white; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            border-left: 6px solid #ff6b6b;
             transition: all 0.3s;
-            margin-top: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
-
-        .auth-submit-btn:hover {
-            background: linear-gradient(135deg, #ff9800, #ff5722);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+        .history-item:hover { 
+            background: #e3f2fd; 
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
-
-        .auth-submit-btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .badge { 
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%); 
+            color: white; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 13px; 
+            margin-left: 10px; 
+            font-weight: 700;
+            border: 2px solid #ffd700;
         }
-
-        .auth-error {
-            background: rgba(220, 38, 38, 0.2);
-            color: #ff6b6b;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            border: 1px solid rgba(220, 38, 38, 0.3);
-            display: none;
+        .loading { 
+            display: none; 
+            color: #0c2461; 
+            font-weight: 700; 
+            margin-top: 20px; 
+            font-size: 20px;
             text-align: center;
         }
-
-        .auth-error.show {
-            display: block;
-            animation: shake 0.5s;
+        .loading.active { 
+            display: block; 
         }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .auth-success {
-            background: rgba(34, 197, 94, 0.2);
-            color: #4ade80;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            display: none;
+        input[type="number"] {
+            padding: 12px;
+            border: 3px solid #0c2461;
+            border-radius: 10px;
+            width: 120px;
+            font-size: 18px;
             text-align: center;
+            font-weight: 600;
+            color: #0c2461;
         }
-
-        .auth-success.show {
-            display: block;
+        .btn-primary { 
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%); 
+            border-color: #155724; 
         }
-
-        .auth-footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            opacity: 0.8;
-            color: rgba(255,255,255,0.7);
+        .btn-primary:hover { 
+            background: linear-gradient(135deg, #218838 0%, #1e7e34 100%); 
         }
-
-        .auth-toggle {
-            text-align: center;
-            margin-top: 15px;
+        .btn-danger { 
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); 
+            border-color: #721c24; 
         }
-
-        .auth-toggle-btn {
-            background: none;
-            border: none;
-            color: #ffd700;
-            cursor: pointer;
-            font-size: 14px;
-            text-decoration: underline;
-            padding: 5px;
+        .btn-danger:hover { 
+            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%); 
         }
-
-        .auth-toggle-btn:hover {
+        .btn-mega { 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); 
+            border-color: #ffd700; 
+            font-size: 18px;
+            padding: 16px 25px;
+        }
+        .mega-ball-note {
+            background: #0c2461;
             color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            border: 3px solid #ffd700;
+            font-weight: 600;
         }
-        
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .countries-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .mega-ball {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin: 0 5px;
+            border: 2px solid #ffd700;
         }
-        
-        @media (max-width: 900px) {
-            .countries-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .main-header h1 {
-                font-size: 42px;
-            }
-            
-            .pricing-badge {
-                font-size: 22px;
-                padding: 12px 25px;
-            }
-            
-            .country-header h2 {
-                font-size: 36px;
-            }
-            
-            .country-flag {
-                font-size: 80px;
-            }
-            
-            .slogan {
-                font-size: 22px;
-            }
+        .combo-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 35px;
+            font-weight: 700;
+            margin: 0 3px;
+            border: 2px solid #ffd700;
         }
-        
-        @media (max-width: 600px) {
-            .main-header h1 {
-                font-size: 36px;
-            }
-            
-            .country-header h2 {
-                font-size: 28px;
-            }
-            
-            .feature-card {
-                padding: 30px 20px;
-            }
-            
-            .subscribe-btn {
-                padding: 18px;
-                font-size: 20px;
-            }
-            
-            .access-tool-btn {
-                padding: 18px;
-                font-size: 20px;
-            }
-            
-            .slogan {
-                font-size: 20px;
-            }
-
-            .auth-gateway {
-                padding: 20px;
-            }
+        .mega-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
         }
-        
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .odds-display {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 25px 0;
+            gap: 15px;
+        }
+        .odds-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            border: 3px solid #0c2461;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+        .odds-box h4 {
+            margin-top: 0;
+            color: #0c2461;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 10px;
+        }
+        .jackpot-amount {
+            font-size: 32px;
+            color: #ff6b6b;
+            font-weight: 900;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+            margin: 15px 0;
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <!-- Main Header -->
-        <header class="main-header">
-            <div class="particles" id="particles"></div>
-            <h1>🎰 ALL FUTURE DRAWS GENERATOR</h1>
-            <p>Access EVERY possible number combination for global lottery systems. Get lifetime access to complete mathematical generators, advanced analysis tools, and winning patterns.</p>
-            
-            <div class="slogan-rotator">
-                <div class="slogan-container">
-                    <div class="slogan">"Every Possible Winning Number - Guaranteed"</div>
-                    <div class="slogan">"Access All Future Draws - Today"</div>
-                    <div class="slogan">"The Complete Lottery Encyclopedia"</div>
-                    <div class="slogan">"Unlock Every Jackpot Possibility"</div>
-                    <div class="slogan">"All Numbers. All Combinations. All Yours."</div>
-                    <div class="slogan">"Lotto Vault Pro System"</div>
-                    <div class="slogan">"Jackpot Architect Suite"</div>
-                    <div class="slogan">"Winning Matrix Master"</div>
-                    <div class="slogan">"Fortune Algorithm Pro"</div>
-                    <div class="slogan">"Lotto Oracle System"</div>
-                </div>
-            </div>
-            
-            <div class="pricing-badge">
-                💰 $100 LIFETIME ACCESS PER GENERATOR
-            </div>
-            <p style="font-size: 20px; font-weight: 700; color: var(--purple);">One-time payment • No recurring fees • Instant access</p>
-        </header>
-        
-        <!-- Premium Names Section -->
-        <div class="premium-names">
-            <div class="premium-badge">LOTTO VAULT PRO</div>
-            <div class="premium-badge">JACKPOT ARCHITECT SUITE</div>
-            <div class="premium-badge">WINNING MATRIX MASTER</div>
-            <div class="premium-badge">FORTUNE ALGORITHM PRO</div>
-            <div class="premium-badge">BILLIONAIRE'S BLUEPRINT</div>
-        </div>
-        
-        <!-- Security Badges -->
-        <div class="security-badges">
-            <div class="security-badge">
-                <div class="security-badge-icon">🔒</div>
-                <div>
-                    <strong>Secure Payment</strong><br>
-                    <small>SSL Encrypted Transactions</small>
-                </div>
-            </div>
-            <div class="security-badge">
-                <div class="security-badge-icon">⚡</div>
-                <div>
-                    <strong>Instant Delivery</strong><br>
-                    <small>Access within seconds</small>
-                </div>
-            </div>
-            <div class="security-badge">
-                <div class="security-badge-icon">🛡️</div>
-                <div>
-                    <strong>Money Back Guarantee</strong><br>
-                    <small>30-day refund policy</small>
-                </div>
+    <div class="container">
+        <div class="mega-header">
+            <div class="mega-icon">🎰💰</div>
+            <h1>US MEGA MILLIONS</h1>
+            <p class="mega-subtitle">1 to 70 • Choose 5 Main Numbers • All Possible Combinations</p>
+            <p>Complete mathematical generator for all 12,103,014 possible combinations</p>
+            <div class="jackpot-display">
+                💰 Current Jackpot Odds: 1 in 302,575,350 (with Mega Ball)
             </div>
         </div>
         
-        <!-- Slogan Grid -->
-        <div class="slogan-grid">
-            <div class="slogan-card">
-                <p>🎯 Complete Lotto Matrix</p>
-                <p style="font-size: 16px; color: #666; margin-top: 10px;">Every combination mathematically calculated</p>
+        <div class="odds-display">
+            <div class="odds-box">
+                <h4>🎯 Match 5 + Mega Ball</h4>
+                <div class="jackpot-amount">JACKPOT</div>
+                <p>Odds: 1 in 302,575,350</p>
             </div>
-            <div class="slogan-card">
-                <p>📊 Lottery Algorithm Pro</p>
-                <p style="font-size: 16px; color: #666; margin-top: 10px;">Advanced computational analysis</p>
+            <div class="odds-box">
+                <h4>🎯 Match 5 Numbers</h4>
+                <div class="jackpot-amount">$1,000,000</div>
+                <p>Odds: 1 in 12,103,014</p>
             </div>
-            <div class="slogan-card">
-                <p>🔑 Lotto Combination Keys</p>
-                <p style="font-size: 16px; color: #666; margin-top: 10px;">Unlock winning patterns</p>
-            </div>
-            <div class="slogan-card">
-                <p>🏆 Jackpot Access Codes</p>
-                <p style="font-size: 16px; color: #666; margin-top: 10px;">Direct path to jackpots</p>
+            <div class="odds-box">
+                <h4>🎯 Match 4 + Mega Ball</h4>
+                <div class="jackpot-amount">$10,000</div>
+                <p>Odds: 1 in 931,001</p>
             </div>
         </div>
         
-        <!-- Countries Grid -->
-        <section class="countries-grid">
-            <!-- UAE Card -->
-            <div class="country-card uae-card">
-                <div class="country-header">
-                    <div class="country-flag">🇦🇪</div>
-                    <h2>UAE FAST 5 <span class="trophy">🏆</span></h2>
-                    <p><span class="mini-flag">🇦🇪</span> United Arab Emirates</p>
-                </div>
-                <div class="country-details">
-                    <p><strong>🎯 Format:</strong> 1 to 42 • Choose 5 Numbers</p>
-                    <p><strong>📊 Total Combinations:</strong> 850,668</p>
-                    <p><strong>⏰ Draws:</strong> Multiple times daily</p>
-                    <div class="lottery-info">
-                        <h4>🏆 About UAE FAST 5</h4>
-                        <p>Official UAE National Lottery with 5/42 format. Fast-paced draws, popular across Middle Eastern countries with frequent jackpot wins.</p>
-                    </div>
-                    <a href="#" class="subscribe-btn" onclick="redirectToPayment('UAE')">
-                        GET LIFETIME ACCESS
-                        <div class="price-tag">$100</div>
-                    </a>
-                    <a href="Accesstool_html_20251224_89543f.html" class="access-tool-btn">
-                        🔐 ACCESS THE TOOL
-                    </a>
-                </div>
-            </div>
-            
-            <!-- USA Card -->
-            <div class="country-card usa-card">
-                <div class="country-header">
-                    <div class="country-flag">🇺🇸</div>
-                    <h2>MEGA MILLIONS <span class="trophy">🏆</span></h2>
-                    <p><span class="mini-flag">🇺🇸</span> United States</p>
-                </div>
-                <div class="country-details">
-                    <p><strong>🎯 Format:</strong> 1 to 70 • Choose 5 Main Numbers</p>
-                    <p><strong>📊 Total Combinations:</strong> 12,103,014</p>
-                    <p><strong>💰 Largest Jackpot:</strong> $1.602 Billion</p>
-                    <div class="lottery-info">
-                        <h4>💎 World's Largest Jackpots</h4>
-                        <p>America's premier lottery with record-breaking billion-dollar jackpots. Drawings every Tuesday and Friday night.</p>
-                    </div>
-                    <a href="#" class="subscribe-btn" onclick="redirectToPayment('USA')">
-                        GET LIFETIME ACCESS
-                        <div class="price-tag">$100</div>
-                    </a>
+        <div class="mega-ball-note">
+            ⚠️ Note: This generator shows all possible combinations for the 5 main numbers (1-70). 
+            The Mega Ball (1-25) is not included as it's drawn separately. 
+            Actual jackpot odds include both 5 main numbers AND the Mega Ball.
+        </div>
 
-                    <!-- SECURE AUTHENTICATION GATEWAY FOR MEGA MILLIONS -->
-                    <div class="auth-gateway megamillions-auth" id="megamillionsAuth">
-                        <div class="auth-header">
-                            <h3>🔐 Mega Millions Secure Access</h3>
-                            <p>Enter your credentials to access the Mega Millions Generator Tool</p>
-                        </div>
-                        
-                        <form class="auth-form" id="megamillionsAuthForm">
-                            <div class="auth-input-group">
-                                <label for="megaAuthEmail">Email Address</label>
-                                <input type="email" id="megaAuthEmail" class="auth-input" placeholder="your.email@domain.com" required>
-                            </div>
-                            
-                            <div class="auth-input-group">
-                                <label for="megaAuthPassword">Access Passcode</label>
-                                <input type="password" id="megaAuthPassword" class="auth-input" placeholder="Enter 6-character passcode" required maxlength="6">
-                                <div style="font-size: 12px; margin-top: 5px; color: rgba(255,255,255,0.7);">Must be exactly 6 characters</div>
-                            </div>
-                            
-                            <button type="submit" class="auth-submit-btn" id="megaAuthSubmitBtn">Access Mega Millions Tool</button>
-                            
-                            <div class="auth-error" id="megaAuthErrorMessage">
-                                Invalid credentials. Please try again.
-                            </div>
-                            
-                            <div class="auth-success" id="megaAuthSuccessMessage">
-                                ✅ Authentication successful! Redirecting to Mega Millions tool...
-                            </div>
-                        </form>
-                        
-                        <div class="auth-footer">
-                            © SecureTool 2024 | Authorized access only
-                        </div>
-                        
-                        <div class="auth-toggle">
-                            <button type="button" class="auth-toggle-btn" onclick="toggleMegaMillionsAuthGateway()">Hide Authentication</button>
-                        </div>
-                    </div>
+        <div class="stats">
+            <h3>📊 US MEGA MILLIONS - Mathematical Overview</h3>
+            <p><strong>Total Main Number Combinations (1-70 choose 5):</strong> <span style="color: #ff6b6b; font-size: 24px;">12,103,014</span></p>
+            <p><strong>Total Pages (1,000 per page):</strong> 12,104 pages</p>
+            <p><strong>Mathematical Formula:</strong> C(70,5) = 70!/(5!×65!) = 12,103,014</p>
+            <p><strong>With Mega Ball (1-25):</strong> 12,103,014 × 25 = 302,575,350 total jackpot combinations</p>
+            <p><strong>Combinatorial System:</strong> Uses lexicographical ordering for instant calculation</p>
+        </div>
 
-                    <!-- ACCESS TOOL BUTTON (Triggers authentication) -->
-                    <button class="access-tool-btn" onclick="showMegaMillionsAuthGateway()">
-                        🔐 ACCESS THE TOOL
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Europe Card -->
-            <div class="country-card europe-card">
-                <div class="country-header">
-                    <div class="country-flag">🇪🇺</div>
-                    <h2>EURODREAMS <span class="trophy">🏆</span></h2>
-                    <p><span class="mini-flag">🇪🇺</span> Europe</p>
-                </div>
-                <div class="country-details">
-                    <p><strong>🎯 Format:</strong> 1 to 40 • Choose 6 Numbers</p>
-                    <p><strong>📊 Total Combinations:</strong> 3,838,380</p>
-                    <p><strong>🏆 Jackpot:</strong> Up to €20,000/month for 30 years</p>
-                    <div class="lottery-info">
-                        <h4>🎰 European Lottery System</h4>
-                        <p>Popular across European countries with favorable odds and regular draws. Unique prize structure with monthly payments.</p>
-                    </div>
-                    <a href="#" class="subscribe-btn" onclick="redirectToPayment('EUROPE')">
-                        GET LIFETIME ACCESS
-                        <div class="price-tag">$100</div>
-                    </a>
+        <div class="info-box">
+            <h3>✨ About This Mega Millions Generator</h3>
+            <p>This specialized mathematical tool generates <strong>ALL 12,103,014 possible combinations</strong> for the US Mega Millions 5 main numbers.</p>
+            <p>Every valid combination from [1,2,3,4,5] to [66,67,68,69,70] is mathematically generated and can be located instantly.</p>
+            <p><strong>Key Features:</strong> Exact position calculation, page navigation, search history, random samples, common patterns</p>
+        </div>
 
-                    <!-- SECURE AUTHENTICATION GATEWAY FOR EURODREAMS -->
-                    <div class="auth-gateway eurodreams-auth" id="eurodreamsAuth">
-                        <div class="auth-header">
-                            <h3>🔐 EuroDreams Secure Access</h3>
-                            <p>Enter your credentials to access the EuroDreams Generator Tool</p>
-                        </div>
-                        
-                        <form class="auth-form" id="eurodreamsAuthForm">
-                            <div class="auth-input-group">
-                                <label for="euroAuthEmail">Email Address</label>
-                                <input type="email" id="euroAuthEmail" class="auth-input" placeholder="your.email@domain.com" required>
-                            </div>
-                            
-                            <div class="auth-input-group">
-                                <label for="euroAuthPassword">Access Passcode</label>
-                                <input type="password" id="euroAuthPassword" class="auth-input" placeholder="Enter 6-character passcode" required maxlength="6">
-                                <div style="font-size: 12px; margin-top: 5px; color: rgba(255,255,255,0.7);">Must be exactly 6 characters</div>
-                            </div>
-                            
-                            <button type="submit" class="auth-submit-btn" id="euroAuthSubmitBtn">Access EuroDreams Tool</button>
-                            
-                            <div class="auth-error" id="euroAuthErrorMessage">
-                                Invalid credentials. Please try again.
-                            </div>
-                            
-                            <div class="auth-success" id="euroAuthSuccessMessage">
-                                ✅ Authentication successful! Redirecting to EuroDreams tool...
-                            </div>
-                        </form>
-                        
-                        <div class="auth-footer">
-                            © SecureTool 2024 | Authorized access only
-                        </div>
-                        
-                        <div class="auth-toggle">
-                            <button type="button" class="auth-toggle-btn" onclick="toggleEurodreamsAuthGateway()">Hide Authentication</button>
-                        </div>
-                    </div>
+        <div class="search-container">
+            <h3>🔍 Find Any Mega Millions Combination</h3>
+            <p>Enter 5 numbers from 1-70 separated by commas (e.g., 5,15,25,35,45)</p>
+            <input type="text" id="searchInput" class="search-input" placeholder="5,15,25,35,45">
+            <button onclick="calculateExactPosition()" class="btn-primary">Find Exact Position</button>
+            <button onclick="clearSearch()">Clear Search</button>
+            <div id="loading" class="loading">💰 Calculating exact Mega Millions position...</div>
+            <div id="searchResult" class="search-result"></div>
+            <div id="navigationButtons" class="navigation-buttons"></div>
+        </div>
 
-                    <!-- ACCESS TOOL BUTTON (Triggers authentication) -->
-                    <button class="access-tool-btn" onclick="showEurodreamsAuthGateway()">
-                        🔐 ACCESS THE TOOL
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Australia Card -->
-            <div class="country-card australia-card">
-                <div class="country-header">
-                    <div class="country-flag">🇦🇺</div>
-                    <h2>OZ LOTTO <span class="trophy">🏆</span></h2>
-                    <p><span class="mini-flag">🇦🇺</span> Australia</p>
-                </div>
-                <div class="country-details">
-                    <p><strong>🎯 Format:</strong> 1 to 47 • Choose 7 Numbers</p>
-                    <p><strong>📊 Total Combinations:</strong> 62,891,499</p>
-                    <p><strong>💰 Jackpot Starts:</strong> $2 Million</p>
-                    <div class="lottery-info">
-                        <h4>🦘 Australian Lottery System</h4>
-                        <p>Australia's favorite lottery game. Draws every Tuesday night with jackpots starting at $2 million and frequently reaching $20+ million.</p>
-                    </div>
-                    <a href="#" class="subscribe-btn" onclick="redirectToPayment('AUSTRALIA')">
-                        GET LIFETIME ACCESS
-                        <div class="price-tag">$100</div>
-                    </a>
-                    <a href="Accesstool_html_20251224_89543f.html" class="access-tool-btn">
-                        🔐 ACCESS THE TOOL
-                    </a>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Access Keys Section -->
-        <div class="access-keys">
-            <h2>🔑 Access Keys & Passport Metaphors</h2>
-            <div class="keys-container">
-                <span class="key-badge">Winning Combination Vault</span>
-                <span class="key-badge">Lottery Access Passport</span>
-                <span class="key-badge">The Master Combination Set</span>
-                <span class="key-badge">Every Possible Combination</span>
-                <span class="key-badge">Total Lottery Universe</span>
-                <span class="key-badge">The Complete Lotto Library</span>
-            </div>
+        <div class="search-history" id="searchHistoryContainer" style="display: none;">
+            <h4>📋 Search History (This Session)</h4>
+            <p><small>Click on any previous search to navigate back to it</small></p>
+            <div id="searchHistoryList"></div>
+            <button onclick="clearSearchHistory()" class="btn-danger" style="margin-top: 15px;">Clear History</button>
+        </div>
+
+        <div class="controls">
+            <button onclick="generateCombinations(1)" class="btn-mega">💰 First Page</button>
+            <button onclick="generateCombinations(currentPage - 1)">← Previous Page</button>
+            <button onclick="generateCombinations(currentPage + 1)">Next Page →</button>
+            <button onclick="goToSpecificPage()">Go to Page</button>
+            <button onclick="downloadCurrentPage()">💾 Download Page</button>
+            <button onclick="generateRandomSample()">🎲 Random Sample (100)</button>
+            <button onclick="generateWinningPatterns()">🏆 Common Patterns</button>
+        </div>
+
+        <div class="page-info">
+            📄 Page: <span id="currentPage">0</span> of <span id="totalPages">12,104</span> | 
+            Showing Combinations: <span id="comboRange">0-0</span> |
+            Jump to Page: <input type="number" id="pageJumpInput" placeholder="Page #" min="1" max="12104">
+        </div>
+
+        <div id="combinationsContainer" class="combinations">
+            <!-- Combinations will appear here -->
         </div>
         
-        <!-- Features Section -->
-        <section class="features-grid">
-            <div class="feature-card">
-                <div class="icon">🔢</div>
-                <h3>Complete Lotto Matrix</h3>
-                <p>Access ALL possible number combinations for each lottery system with mathematical precision</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">🔍</div>
-                <h3>Lottery Algorithm Pro</h3>
-                <p>Find exact positions of any combination instantly using combinatorial mathematics algorithms</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">📊</div>
-                <h3>Probability Calculator Pro</h3>
-                <p>Pattern recognition, frequency analysis, and probability calculations for smart decisions</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">💾</div>
-                <h3>Lotto Combination Keys</h3>
-                <p>Download complete sets of combinations for offline analysis and research</p>
-            </div>
-        </section>
-        
-        <!-- Footer -->
-        <footer class="main-footer">
-            <h3>🌐 ALL FUTURE DRAWS GENERATOR</h3>
-            <p style="font-size: 18px; margin: 20px 0; font-weight: 700; color: var(--purple);">
-                Lotto Vault Pro • Jackpot Architect Suite • Winning Matrix Master • Fortune Algorithm Pro
-            </p>
-            <p style="font-size: 18px; margin: 20px 0;">© 2024 All rights reserved. Mathematical analysis tool for entertainment purposes.</p>
-            <div style="margin-top: 30px; padding: 20px; background: rgba(0,0,0,0.05); border-radius: 12px;">
-                <p style="font-size: 14px; color: #666;">
-                    <strong>⚠️ Disclaimer:</strong> This is a mathematical analysis tool for educational and entertainment purposes only.<br>
-                    Not gambling advice. Users must be of legal age in their jurisdiction. Gamble responsibly.
-                </p>
-            </div>
-        </footer>
+        <div style="text-align: center; margin-top: 40px; padding: 25px; background: #0c2461; color: white; border-radius: 12px; border: 3px solid #ffd700;">
+            <h3>💰 US MEGA MILLIONS Facts</h3>
+            <p>• Drawings: Tuesday and Friday nights at 11:00 PM ET</p>
+            <p>• Minimum jackpot: $20 million (rolls over if not won)</p>
+            <p>• Largest jackpot: $1.602 billion (August 2023)</p>
+            <p>• All 12,103,014 main number combinations are mathematically covered in this generator</p>
+        </div>
     </div>
-    
+
     <script>
-        // Function to redirect to Stripe payment page
-        function redirectToPayment(country) {
-            // Store selected country in localStorage
-            localStorage.setItem('selected_country', country);
-            
-            // Add your Stripe payment links here for each country
-            const stripeLinks = {
-                'UAE': '#', // Add your UAE Stripe link
-                'USA': '#', // Add your USA Stripe link
-                'EUROPE': '#', // Add your Europe Stripe link
-                'AUSTRALIA': '#' // Add your Australia Stripe link
-            };
-            
-            // Get the appropriate Stripe link
-            const stripeLink = stripeLinks[country] || '#';
-            
-            // Redirect to Stripe payment page
-            if (stripeLink !== '#') {
-                window.location.href = stripeLink;
-            } else {
-                alert('Payment link for ' + country + ' will be added soon!');
-            }
-        }
+        let currentPage = 0;
+        const combosPerPage = 1000;
+        const totalCombinations = 12103014; // C(70,5) = 12,103,014
+        const totalPages = 12104;
+        let currentCombinations = [];
+        let lastSearchedCombination = null;
         
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const emojis = ['💰', '🎰', '🎲', '🔢', '📊', '💎', '🏆', '💳', '⚡', '🎯'];
-            
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-                
-                // Random properties
-                const size = Math.random() * 15 + 10;
-                const left = Math.random() * 100;
-                const duration = Math.random() * 10 + 10;
-                const delay = Math.random() * 5;
-                
-                particle.style.fontSize = `${size}px`;
-                particle.style.left = `${left}%`;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.opacity = Math.random() * 0.5 + 0.3;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
+        // In-memory search history
+        let searchHistory = [];
+
+        // Pre-calculate binomial coefficients for faster computation
+        const binomialCache = new Map();
         
-        // Add hover effects to country cards
-        document.querySelectorAll('.country-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-20px) scale(1.03)';
-            });
+        function binomialCoefficient(n, k) {
+            if (k < 0 || k > n) return 0;
+            if (k === 0 || k === n) return 1;
             
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
+            const key = `${n},${k}`;
+            if (binomialCache.has(key)) return binomialCache.get(key);
             
-            // Add fade-in animation to cards
-            const cards = document.querySelectorAll('.country-card, .feature-card, .slogan-card');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-                card.style.animation = 'fadeIn 0.5s forwards';
-            });
-        });
-
-        // MEGA MILLIONS AUTHENTICATION FUNCTIONS
-        function showMegaMillionsAuthGateway() {
-            const authGateway = document.getElementById('megamillionsAuth');
-            authGateway.classList.add('active');
-            
-            // Scroll to the authentication gateway
-            authGateway.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function toggleMegaMillionsAuthGateway() {
-            const authGateway = document.getElementById('megamillionsAuth');
-            authGateway.classList.toggle('active');
-        }
-
-        // EURODREAMS AUTHENTICATION FUNCTIONS
-        function showEurodreamsAuthGateway() {
-            const authGateway = document.getElementById('eurodreamsAuth');
-            authGateway.classList.add('active');
-            
-            // Scroll to the authentication gateway
-            authGateway.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function toggleEurodreamsAuthGateway() {
-            const authGateway = document.getElementById('eurodreamsAuth');
-            authGateway.classList.toggle('active');
-        }
-
-        // SHARED AUTHENTICATION FUNCTIONS
-        function sanitizeInput(input) {
-            return input
-                .replace(/[<>]/g, '')
-                .trim();
-        }
-
-        function validateEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        // Hidden password validation logic (DO NOT MODIFY OR REVEAL)
-        function validatePassword(passcode) {
-            // Security check: Must be exactly 6 characters
-            if (passcode.length !== 6) {
-                console.log('Validation failed: Not exactly 6 characters');
-                return false;
+            let result = 1;
+            for (let i = 1; i <= k; i++) {
+                result = result * (n - k + i) / i;
             }
             
-            // Initialize character type counters
-            let letterCount = 0;
-            let specialCharCount = 0;
-            let digitCount = 0;
+            binomialCache.set(key, Math.round(result));
+            return Math.round(result);
+        }
+
+        document.getElementById('totalPages').textContent = totalPages.toLocaleString();
+        updateSearchHistoryDisplay();
+
+        function calculateLexicographicalPosition(combination) {
+            const sortedCombo = [...combination].sort((a, b) => a - b);
+            let position = 1;
+            const n = 70;
+            const k = 5;
             
-            // Define allowed character sets
-            const letters = /[a-zA-Z]/;
-            const specialChars = /[!@#$%^&*]/;
-            const digits = /[0-9]/;
-            
-            // Check each character and count types
-            for (let char of passcode) {
-                if (letters.test(char)) {
-                    letterCount++;
-                } else if (specialChars.test(char)) {
-                    specialCharCount++;
-                } else if (digits.test(char)) {
-                    digitCount++;
-                } else {
-                    // Invalid character found
-                    console.log('Validation failed: Invalid character detected');
-                    return false;
+            for (let i = 0; i < k; i++) {
+                const currentNumber = sortedCombo[i];
+                const prevNumber = (i === 0) ? 0 : sortedCombo[i - 1];
+                
+                for (let num = prevNumber + 1; num < currentNumber; num++) {
+                    const remainingPositions = k - i - 1;
+                    const remainingNumbers = n - num;
+                    position += binomialCoefficient(remainingNumbers, remainingPositions);
                 }
             }
             
-            // Check for exact composition requirements
-            const isValid = letterCount === 3 && specialCharCount === 1 && digitCount === 2;
-            
-            if (!isValid) {
-                console.log(`Validation failed: Composition incorrect (Letters: ${letterCount}, Special: ${specialCharCount}, Digits: ${digitCount})`);
-            } else {
-                console.log('Validation passed: Access granted');
-            }
-            
-            return isValid;
+            return position;
         }
 
-        // Setup Mega Millions authentication form
+        function getCombinationAtPosition(position) {
+            if (position < 1 || position > totalCombinations) return null;
+            
+            let remaining = position - 1;
+            const combo = [];
+            let current = 1;
+            const n = 70;
+            const k = 5;
+            
+            for (let i = 0; i < k; i++) {
+                const spotsLeft = k - i - 1;
+                
+                for (let num = current; num <= n; num++) {
+                    const combs = binomialCoefficient(n - num, spotsLeft);
+                    
+                    if (remaining < combs) {
+                        combo.push(num);
+                        current = num + 1;
+                        break;
+                    } else {
+                        remaining -= combs;
+                    }
+                }
+            }
+            
+            return combo;
+        }
+
+        function generateCombinations(page) {
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+            
+            const container = document.getElementById('combinationsContainer');
+            const comboRange = document.getElementById('comboRange');
+            const currentPageElem = document.getElementById('currentPage');
+            
+            container.innerHTML = '';
+            currentPage = page;
+            currentPageElem.textContent = currentPage.toLocaleString();
+            
+            const startIdx = (page - 1) * combosPerPage + 1;
+            const endIdx = Math.min(startIdx + combosPerPage - 1, totalCombinations);
+            comboRange.textContent = `${startIdx.toLocaleString()}-${endIdx.toLocaleString()}`;
+            
+            clearSearchHighlights();
+            
+            for (let i = 0; i < combosPerPage && (startIdx + i) <= totalCombinations; i++) {
+                const comboNumber = startIdx + i;
+                const combo = getCombinationAtPosition(comboNumber);
+                
+                const comboElement = document.createElement('div');
+                comboElement.className = 'combo';
+                comboElement.id = `combo-${comboNumber}`;
+                
+                const comboStr = JSON.stringify(combo);
+                const isSearched = searchHistory.some(item => item.comboStr === comboStr);
+                if (isSearched) {
+                    comboElement.classList.add('searched');
+                }
+                
+                if (lastSearchedCombination && JSON.stringify(combo) === JSON.stringify(lastSearchedCombination.combination)) {
+                    comboElement.classList.add('exact-match');
+                }
+                
+                // Format with number circles
+                const comboDisplay = combo.map(num => 
+                    `<span class="combo-number">${num}</span>`
+                ).join(' ');
+                
+                comboElement.innerHTML = `
+                    <div style="color: #0c2461; margin-bottom: 8px; font-size: 14px;">
+                        Combination #${comboNumber.toLocaleString()}
+                    </div>
+                    <div style="font-size: 18px; margin: 10px 0;">
+                        ${comboDisplay}
+                    </div>
+                    <div style="font-size: 12px; color: #666;">
+                        [${combo.join(', ')}]
+                    </div>
+                `;
+                container.appendChild(comboElement);
+            }
+            
+            if (lastSearchedCombination) {
+                setTimeout(() => {
+                    const exactMatch = document.querySelector('.combo.exact-match');
+                    if (exactMatch) {
+                        exactMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 100);
+            }
+        }
+
+        function goToSpecificPage() {
+            const pageInput = document.getElementById('pageJumpInput');
+            const pageNum = parseInt(pageInput.value);
+            if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+                generateCombinations(pageNum);
+            } else {
+                alert(`Please enter a page number between 1 and ${totalPages.toLocaleString()}`);
+            }
+        }
+
+        function generateRandomSample() {
+            const container = document.getElementById('combinationsContainer');
+            const comboRange = document.getElementById('comboRange');
+            const currentPageElem = document.getElementById('currentPage');
+            
+            container.innerHTML = '';
+            currentPage = 0;
+            currentPageElem.textContent = 'Random Sample';
+            comboRange.textContent = '100 random Mega Millions combinations';
+            
+            clearSearchHighlights();
+            
+            for (let i = 1; i <= 100; i++) {
+                const randomPos = Math.floor(Math.random() * totalCombinations) + 1;
+                const combo = getCombinationAtPosition(randomPos);
+                
+                const comboElement = document.createElement('div');
+                comboElement.className = 'combo';
+                comboElement.id = `combo-${i}`;
+                
+                const comboStr = JSON.stringify(combo);
+                const isSearched = searchHistory.some(item => item.comboStr === comboStr);
+                if (isSearched) {
+                    comboElement.classList.add('searched');
+                }
+                
+                const comboDisplay = combo.map(num => 
+                    `<span class="combo-number">${num}</span>`
+                ).join(' ');
+                
+                comboElement.innerHTML = `
+                    <div style="color: #ff6b6b; margin-bottom: 8px; font-size: 14px;">
+                        🎲 Random #${i}
+                    </div>
+                    <div style="font-size: 18px; margin: 10px 0;">
+                        ${comboDisplay}
+                    </div>
+                    <div style="font-size: 12px; color: #666;">
+                        Position: ${randomPos.toLocaleString()}
+                    </div>
+                `;
+                container.appendChild(comboElement);
+            }
+        }
+
+        function generateWinningPatterns() {
+            const container = document.getElementById('combinationsContainer');
+            const comboRange = document.getElementById('comboRange');
+            const currentPageElem = document.getElementById('currentPage');
+            
+            container.innerHTML = '';
+            currentPage = 0;
+            currentPageElem.textContent = 'Common Mega Millions Patterns';
+            comboRange.textContent = 'Historical and statistical patterns';
+            
+            clearSearchHighlights();
+            
+            // Common Mega Millions patterns
+            const patterns = [
+                {name: "All Low", combo: [3,7,11,15,19], desc: "All numbers under 20"},
+                {name: "All High", combo: [51,55,59,63,67], desc: "All numbers over 50"},
+                {name: "Even Spread", combo: [10,20,30,40,50], desc: "Multiples of 10"},
+                {name: "Odd Only", combo: [5,17,29,41,53], desc: "All odd numbers"},
+                {name: "Even Only", combo: [8,22,36,44,58], desc: "All even numbers"},
+                {name: "Sequential", combo: [15,16,17,18,19], desc: "5 consecutive numbers"},
+                {name: "Birthday Range", combo: [1,12,23,28,31], desc: "Common dates (1-31)"},
+                {name: "Hot Numbers", combo: [10,14,31,39,55], desc: "Frequently drawn"},
+                {name: "Cold Numbers", combo: [6,21,33,47,62], desc: "Rarely drawn"},
+                {name: "Fibonacci", combo: [3,5,8,13,21], desc: "Fibonacci sequence"},
+                {name: "Prime Numbers", combo: [2,3,5,7,11], desc: "First 5 primes"},
+                {name: "Quintiles", combo: [14,28,42,56,70], desc: "One from each quintile"},
+                {name: "Sum ~175", combo: [23,31,37,41,43], desc: "Sum around average (175)"},
+                {name: "Low Sum", combo: [1,2,3,4,65], desc: "Very low sum"},
+                {name: "High Sum", combo: [6,65,66,67,68], desc: "Very high sum"},
+            ];
+            
+            patterns.forEach((pattern, index) => {
+                const position = calculateLexicographicalPosition(pattern.combo);
+                const sum = pattern.combo.reduce((a,b) => a + b, 0);
+                
+                const comboElement = document.createElement('div');
+                comboElement.className = 'combo';
+                comboElement.id = `pattern-${index}`;
+                comboElement.style.background = 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)';
+                comboElement.style.border = '3px solid #0c2461';
+                
+                const comboDisplay = pattern.combo.map(num => 
+                    `<span class="combo-number">${num}</span>`
+                ).join(' ');
+                
+                comboElement.innerHTML = `
+                    <div style="font-weight: bold; color: #0c2461; font-size: 18px; margin-bottom: 10px;">
+                        ${pattern.name}
+                    </div>
+                    <div style="font-size: 20px; margin: 10px 0;">
+                        ${comboDisplay}
+                    </div>
+                    <div style="font-size: 13px; color: #666; margin-bottom: 8px;">
+                        ${pattern.desc}
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                        <span style="color: #0c2461;">Pos: ${position.toLocaleString()}</span>
+                        <span style="color: #ff6b6b;">Sum: ${sum}</span>
+                    </div>
+                `;
+                container.appendChild(comboElement);
+            });
+        }
+
+        function calculateExactPosition() {
+            const searchInput = document.getElementById('searchInput').value;
+            const searchResult = document.getElementById('searchResult');
+            const navigationButtons = document.getElementById('navigationButtons');
+            const loading = document.getElementById('loading');
+            
+            clearSearchHighlights();
+            navigationButtons.innerHTML = '';
+            
+            if (!searchInput.trim()) {
+                searchResult.innerHTML = '<span style="color: #666;">Please enter Mega Millions numbers to search</span>';
+                return;
+            }
+            
+            let searchNumbers;
+            try {
+                searchNumbers = searchInput.split(',')
+                    .map(num => parseInt(num.trim()))
+                    .filter(num => !isNaN(num) && num >= 1 && num <= 70);
+                    
+                if (searchNumbers.length !== 5) {
+                    searchResult.innerHTML = '<span style="color: #c62828;"><strong>Error:</strong> Mega Millions requires exactly 5 numbers between 1 and 70</span>';
+                    searchResult.className = 'search-result not-found';
+                    return;
+                }
+                
+                if (new Set(searchNumbers).size !== 5) {
+                    searchResult.innerHTML = '<span style="color: #c62828;"><strong>Error:</strong> Duplicate numbers found. Please enter 5 unique numbers.</span>';
+                    searchResult.className = 'search-result not-found';
+                    return;
+                }
+                
+                searchNumbers.sort((a, b) => a - b);
+                
+            } catch (error) {
+                searchResult.innerHTML = '<span style="color: #c62828;"><strong>Error:</strong> Invalid format. Use: 5,15,25,35,45</span>';
+                searchResult.className = 'search-result not-found';
+                return;
+            }
+            
+            loading.classList.add('active');
+            searchResult.innerHTML = '';
+            
+            setTimeout(() => {
+                const exactPosition = calculateLexicographicalPosition(searchNumbers);
+                const exactPage = Math.ceil(exactPosition / combosPerPage);
+                const sum = searchNumbers.reduce((a,b) => a + b, 0);
+                
+                lastSearchedCombination = {
+                    combination: searchNumbers,
+                    exactPosition: exactPosition,
+                    exactPage: exactPage,
+                    sum: sum
+                };
+                
+                addToSearchHistory(searchNumbers, exactPosition, exactPage, sum);
+                
+                const comboDisplay = searchNumbers.map(num => 
+                    `<span class="combo-number">${num}</span>`
+                ).join(' ');
+                
+                searchResult.innerHTML = `
+                    <div style="font-size: 24px; color: #ffd700; margin-bottom: 15px;">
+                        🎰 MEGA MILLIONS COMBINATION FOUND!
+                    </div>
+                    <div style="font-size: 22px; margin: 15px 0;">
+                        ${comboDisplay}
+                    </div>
+                    <div style="font-size: 18px; margin: 10px 0;">
+                        <strong>Exact Position:</strong> ${exactPosition.toLocaleString()} of ${totalCombinations.toLocaleString()}
+                    </div>
+                    <div style="font-size: 18px; margin: 10px 0;">
+                        <strong>Page Location:</strong> ${exactPage.toLocaleString()} of ${totalPages.toLocaleString()}
+                    </div>
+                    <div style="font-size: 16px; margin: 10px 0;">
+                        <strong>Sum of numbers:</strong> ${sum} (Average sum is 177.5)
+                    </div>
+                    <div style="font-size: 14px; color: #ccc; margin-top: 15px;">
+                        Using combinatorial mathematics for US Mega Millions
+                    </div>
+                `;
+                searchResult.className = 'search-result info';
+                
+                navigationButtons.innerHTML = `
+                    <button onclick="goToExactPage(${exactPage})" class="btn-primary" style="font-size: 20px; padding: 18px 30px;">
+                        🚀 Go to Page ${exactPage.toLocaleString()}
+                    </button>
+                    <button onclick="goToNearbyPage(${exactPage}, -5)" style="font-size: 16px;">
+                        ← 5 Pages Back
+                    </button>
+                    <button onclick="goToNearbyPage(${exactPage}, 5)" style="font-size: 16px;">
+                        5 Pages Forward →
+                    </button>
+                `;
+                
+                loading.classList.remove('active');
+                goToExactPage(exactPage);
+                
+            }, 100);
+        }
+
+        function addToSearchHistory(combination, exactPosition, exactPage, sum) {
+            const comboStr = JSON.stringify(combination);
+            const timestamp = new Date().toLocaleString();
+            
+            const existingIndex = searchHistory.findIndex(item => item.comboStr === comboStr);
+            
+            const historyItem = {
+                combination: [...combination],
+                comboStr: comboStr,
+                exactPosition: exactPosition,
+                exactPage: exactPage,
+                sum: sum,
+                timestamp: timestamp
+            };
+            
+            if (existingIndex !== -1) {
+                searchHistory[existingIndex] = historyItem;
+            } else {
+                searchHistory.unshift(historyItem);
+                if (searchHistory.length > 20) {
+                    searchHistory.pop();
+                }
+            }
+            
+            updateSearchHistoryDisplay();
+        }
+
+        function updateSearchHistoryDisplay() {
+            const historyContainer = document.getElementById('searchHistoryContainer');
+            const historyList = document.getElementById('searchHistoryList');
+            
+            if (searchHistory.length === 0) {
+                historyContainer.style.display = 'none';
+                return;
+            }
+            
+            historyContainer.style.display = 'block';
+            historyList.innerHTML = '';
+            
+            searchHistory.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                
+                const comboDisplay = item.combination.map(num => 
+                    `<span style="display: inline-block; width: 25px; height: 25px; background: #0c2461; color: white; border-radius: 50%; text-align: center; line-height: 25px; margin: 0 2px; font-size: 12px;">${num}</span>`
+                ).join('');
+                
+                historyItem.innerHTML = `
+                    <div style="font-weight: bold; color: #0c2461; margin-bottom: 5px;">
+                        ${comboDisplay}
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                        <span>
+                            <span class="badge">Pos: ${item.exactPosition.toLocaleString()}</span>
+                            <span class="badge">Page: ${item.exactPage.toLocaleString()}</span>
+                            <span class="badge">Sum: ${item.sum}</span>
+                        </span>
+                        <small style="color: #666;">${item.timestamp}</small>
+                    </div>
+                `;
+                historyItem.onclick = () => {
+                    document.getElementById('searchInput').value = item.combination.join(', ');
+                    lastSearchedCombination = {
+                        combination: item.combination,
+                        exactPosition: item.exactPosition,
+                        exactPage: item.exactPage,
+                        sum: item.sum
+                    };
+                    goToExactPage(item.exactPage);
+                };
+                historyList.appendChild(historyItem);
+            });
+        }
+
+        function clearSearchHistory() {
+            if (confirm('Clear all Mega Millions search history for this session?')) {
+                searchHistory = [];
+                updateSearchHistoryDisplay();
+                generateCombinations(currentPage);
+            }
+        }
+
+        function goToExactPage(page) {
+            document.getElementById('pageJumpInput').value = page;
+            generateCombinations(page);
+        }
+
+        function goToNearbyPage(centerPage, offset) {
+            const newPage = centerPage + offset;
+            if (newPage >= 1 && newPage <= totalPages) {
+                goToExactPage(newPage);
+            }
+        }
+
+        function downloadCurrentPage() {
+            const combos = Array.from(document.querySelectorAll('.combo'))
+                .map(el => {
+                    const text = el.innerText || el.textContent;
+                    return text.replace(/🎲 Random #\d+|💰 Combination #\d+|🔍/g, '').trim();
+                })
+                .join('\n');
+            
+            const blob = new Blob([`US MEGA MILLIONS Combinations - Page ${currentPage}\nGenerated: ${new Date().toLocaleString()}\nTotal Combinations: 12,103,014\n\n${combos}`], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `US_MegaMillions_Page_${currentPage}_Combinations.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResult').innerHTML = '';
+            document.getElementById('searchResult').className = 'search-result';
+            document.getElementById('navigationButtons').innerHTML = '';
+            document.getElementById('loading').classList.remove('active');
+            lastSearchedCombination = null;
+            clearSearchHighlights();
+        }
+
+        function clearSearchHighlights() {
+            const highlighted = document.querySelectorAll('.combo.exact-match');
+            highlighted.forEach(el => {
+                el.classList.remove('exact-match');
+            });
+        }
+
+        // Initialize with first page
+        generateCombinations(1);
+        
+        // Add Mega Ball explanation
         document.addEventListener('DOMContentLoaded', function() {
-            // MEGA MILLIONS AUTHENTICATION
-            const megaAuthForm = document.getElementById('megamillionsAuthForm');
-            if (megaAuthForm) {
-                const megaAuthEmail = document.getElementById('megaAuthEmail');
-                const megaAuthPassword = document.getElementById('megaAuthPassword');
-                const megaAuthErrorMessage = document.getElementById('megaAuthErrorMessage');
-                const megaAuthSuccessMessage = document.getElementById('megaAuthSuccessMessage');
-                const megaAuthSubmitBtn = document.getElementById('megaAuthSubmitBtn');
-                
-                megaAuthForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Reset messages
-                    megaAuthErrorMessage.classList.remove('show');
-                    megaAuthSuccessMessage.classList.remove('show');
-                    
-                    // Sanitize inputs
-                    const email = sanitizeInput(megaAuthEmail.value);
-                    const password = sanitizeInput(megaAuthPassword.value);
-                    
-                    // Validate email format
-                    if (!validateEmail(email)) {
-                        megaAuthErrorMessage.textContent = 'Please enter a valid email address.';
-                        megaAuthErrorMessage.classList.add('show');
-                        return;
-                    }
-                    
-                    // Validate password (using hidden logic)
-                    if (!validatePassword(password)) {
-                        megaAuthErrorMessage.textContent = 'Invalid credentials. Please try again.';
-                        megaAuthErrorMessage.classList.add('show');
-                        return;
-                    }
-                    
-                    // If validation passes
-                    console.log('Mega Millions Authentication successful. Redirecting to tool...');
-                    
-                    // Disable submit button to prevent multiple submissions
-                    megaAuthSubmitBtn.disabled = true;
-                    megaAuthSubmitBtn.textContent = 'Redirecting...';
-                    
-                    // Show success message
-                    megaAuthSuccessMessage.classList.add('show');
-                    
-                    // Redirect to the MEGA MILLIONS tool
-                    setTimeout(() => {
-                        window.location.href = 'MEGAMILLIONSUS_20251206_b6d7cb.html';
-                    }, 1500);
-                });
-                
-                // Real-time validation for password length indicator
-                megaAuthPassword.addEventListener('input', function() {
-                    const passcode = this.value;
-                    const requirementText = this.parentElement.querySelector('div');
-                    
-                    if (passcode.length === 6) {
-                        requirementText.style.color = '#4ade80';
-                        requirementText.textContent = '✓ 6 characters entered';
-                    } else if (passcode.length > 6) {
-                        this.value = this.value.substring(0, 6);
-                        requirementText.style.color = '#ef4444';
-                        requirementText.textContent = 'Maximum 6 characters';
-                    } else {
-                        requirementText.style.color = 'rgba(255,255,255,0.7)';
-                        requirementText.textContent = `${passcode.length}/6 characters`;
-                    }
-                });
-            }
-            
-            // EURODREAMS AUTHENTICATION
-            const euroAuthForm = document.getElementById('eurodreamsAuthForm');
-            if (euroAuthForm) {
-                const euroAuthEmail = document.getElementById('euroAuthEmail');
-                const euroAuthPassword = document.getElementById('euroAuthPassword');
-                const euroAuthErrorMessage = document.getElementById('euroAuthErrorMessage');
-                const euroAuthSuccessMessage = document.getElementById('euroAuthSuccessMessage');
-                const euroAuthSubmitBtn = document.getElementById('euroAuthSubmitBtn');
-                
-                euroAuthForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Reset messages
-                    euroAuthErrorMessage.classList.remove('show');
-                    euroAuthSuccessMessage.classList.remove('show');
-                    
-                    // Sanitize inputs
-                    const email = sanitizeInput(euroAuthEmail.value);
-                    const password = sanitizeInput(euroAuthPassword.value);
-                    
-                    // Validate email format
-                    if (!validateEmail(email)) {
-                        euroAuthErrorMessage.textContent = 'Please enter a valid email address.';
-                        euroAuthErrorMessage.classList.add('show');
-                        return;
-                    }
-                    
-                    // Validate password (using hidden logic)
-                    if (!validatePassword(password)) {
-                        euroAuthErrorMessage.textContent = 'Invalid credentials. Please try again.';
-                        euroAuthErrorMessage.classList.add('show');
-                        return;
-                    }
-                    
-                    // If validation passes
-                    console.log('EuroDreams Authentication successful. Redirecting to tool...');
-                    
-                    // Disable submit button to prevent multiple submissions
-                    euroAuthSubmitBtn.disabled = true;
-                    euroAuthSubmitBtn.textContent = 'Redirecting...';
-                    
-                    // Show success message
-                    euroAuthSuccessMessage.classList.add('show');
-                    
-                    // Redirect to the EURODREAMS tool
-                    setTimeout(() => {
-                        window.location.href = 'EURODREAMS FINAL_html_20251213_a365e9.html';
-                    }, 1500);
-                });
-                
-                // Real-time validation for password length indicator
-                euroAuthPassword.addEventListener('input', function() {
-                    const passcode = this.value;
-                    const requirementText = this.parentElement.querySelector('div');
-                    
-                    if (passcode.length === 6) {
-                        requirementText.style.color = '#4ade80';
-                        requirementText.textContent = '✓ 6 characters entered';
-                    } else if (passcode.length > 6) {
-                        this.value = this.value.substring(0, 6);
-                        requirementText.style.color = '#ef4444';
-                        requirementText.textContent = 'Maximum 6 characters';
-                    } else {
-                        requirementText.style.color = 'rgba(255,255,255,0.7)';
-                        requirementText.textContent = `${passcode.length}/6 characters`;
-                    }
-                });
-            }
-            
-            // Admin debugging console messages
-            console.log('Dual Authentication Gateway initialized');
-            console.log('Mega Millions Authentication system ready');
-            console.log('EuroDreams Authentication system ready');
+            const note = document.createElement('div');
+            note.className = 'mega-ball-note';
+            note.innerHTML = `
+                <div style="margin-bottom: 10px;">
+                    <span class="mega-ball">MB</span> = Mega Ball (1-25, drawn separately)
+                </div>
+                <div>
+                    This generator shows <strong>ALL 12,103,014 combinations</strong> for the 5 main numbers.
+                    For complete jackpot odds (1 in 302,575,350), multiply by 25 possible Mega Balls.
+                </div>
+            `;
+            document.querySelector('.stats').after(note);
         });
     </script>
 </body>
