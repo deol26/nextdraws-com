@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australia Oz Lotto Combinations Generator - 1-47 Choose 10</title>
+    <style>
+        body { 
+            font-family: 'Arial', sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #012169 0%, #E4002B 100%);
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 1600px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
+            border: 5px solid #FFD100;
+        }
+        .oz-header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            background: linear-gradient(135deg, #012169 0%, #E4002B 100%); 
+            color: white; 
+            padding: 30px; 
+            border-radius: 15px;
+            border: 3px solid #FFD100;
+            position: relative;
+        }
+        .oz-header h1 { 
+            margin: 0; 
+            font-size: 48px; 
+            color: #FFD100; 
+            text-shadow: 3px 3px 0 #012169;
+            letter-spacing: 2px;
+        }
+        .oz-subtitle { 
+            color: #FFD100; 
+            font-weight: 700; 
+            font-size: 24px; 
+            margin: 15px 0; 
+        }
+        .jackpot-display {
+            background: #FFD100;
+            color: #012169;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 15px;
+            border: 3px solid #E4002B;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .info-box { 
+            background: linear-gradient(135deg, #012169 0%, #1a3a8a 100%); 
+            color: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin-bottom: 25px; 
+            border: 3px solid #E4002B;
+        }
+        .info-box h3 { 
+            margin-top: 0; 
+            color: #FFD100; 
+            font-size: 26px;
+            border-bottom: 2px solid #FFD100;
+            padding-bottom: 10px;
+        }
+        .combinations { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 15px; 
+            margin-top: 30px; 
+        }
+        .combo { 
+            padding: 15px; 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
+            border: 3px solid #012169; 
+            border-radius: 10px; 
+            font-family: 'Courier New', monospace; 
+            position: relative; 
+            transition: all 0.3s; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            font-weight: 600;
+        }
+        .combo:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+            border-color: #E4002B; 
+        }
+        .combo.searched { 
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); 
+            border-left: 6px solid #28a745; 
+        }
+        .combo.searched::before { 
+            content: "🔍"; 
+            position: absolute; 
+            left: -10px; 
+            top: -10px; 
+            font-size: 16px; 
+            background: #28a745; 
+            border-radius: 50%; 
+            width: 25px; 
+            height: 25px; 
+            text-align: center; 
+            line-height: 25px; 
+            border: 2px solid white;
+        }
+        .combo.exact-match { 
+            background: linear-gradient(135deg, #E4002B 0%, #c40024 100%); 
+            color: white; 
+            border: 4px solid #FFD100; 
+            animation: ozWin 1.5s infinite; 
+            font-weight: 900;
+        }
+        @keyframes ozWin {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .controls { 
+            margin: 30px 0; 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+            justify-content: center;
+        }
+        button { 
+            padding: 14px 22px; 
+            cursor: pointer; 
+            border: none; 
+            border-radius: 10px; 
+            background: linear-gradient(135deg, #012169 0%, #1a3a8a 100%); 
+            color: white; 
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: 2px solid #E4002B;
+        }
+        button:hover { 
+            background: linear-gradient(135deg, #E4002B 0%, #c40024 100%); 
+            transform: translateY(-3px); 
+        }
+        .page-info { 
+            margin: 25px 0; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
+            border-radius: 12px; 
+            font-weight: 700;
+            border: 3px solid #012169;
+            color: #012169;
+            text-align: center;
+            font-size: 18px;
+        }
+        .search-container { 
+            margin: 30px 0; 
+            padding: 30px; 
+            background: linear-gradient(135deg, #012169 0%, #1a3a8a 100%); 
+            border-radius: 15px; 
+            color: white;
+            border: 4px solid #E4002B;
+        }
+        .search-container h3 { 
+            margin-top: 0; 
+            color: #FFD100; 
+            font-size: 28px;
+        }
+        .search-input { 
+            padding: 15px; 
+            width: 350px; 
+            margin-right: 15px; 
+            border: 3px solid #FFD100; 
+            border-radius: 10px; 
+            font-size: 18px;
+            background: white;
+            color: #012169;
+            font-weight: 600;
+        }
+        .search-result { 
+            margin-top: 25px; 
+            padding: 20px; 
+            border-radius: 10px; 
+            font-weight: 600; 
+            font-size: 16px;
+            border: 3px solid;
+        }
+        .search-result.info { 
+            background: rgba(255, 209, 0, 0.9); 
+            color: #012169; 
+            border-color: #012169; 
+        }
+        .search-result.not-found { 
+            background: rgba(255, 255, 255, 0.95); 
+            color: #c62828; 
+            border-color: #ef5350; 
+        }
+        .stats { 
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%); 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin: 25px 0; 
+            border: 3px solid #012169;
+            color: #012169;
+        }
+        .stats h3 { 
+            margin-top: 0; 
+            color: #012169; 
+            font-size: 26px;
+            border-bottom: 3px solid #E4002B;
+            padding-bottom: 10px;
+        }
+        .navigation-buttons { 
+            margin-top: 20px; 
+            display: flex; 
+            gap: 15px; 
+            flex-wrap: wrap; 
+            justify-content: center;
+        }
+        .search-history { 
+            margin-top: 30px; 
+            padding: 25px; 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
+            border-radius: 12px; 
+            border: 3px solid #012169;
+        }
+        .badge { 
+            background: linear-gradient(135deg, #012169 0%, #1a3a8a 100%); 
+            color: white; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 13px; 
+            margin-left: 10px; 
+            font-weight: 700;
+            border: 2px solid #E4002B;
+        }
+        .loading { 
+            display: none; 
+            color: #FFD100; 
+            font-weight: 700; 
+            margin-top: 20px; 
+            font-size: 20px;
+            text-align: center;
+        }
+        .loading.active { display: block; }
+        input[type="number"] {
+            padding: 12px;
+            border: 3px solid #012169;
+            border-radius: 10px;
+            width: 120px;
+            font-size: 18px;
+            text-align: center;
+            font-weight: 600;
+            color: #012169;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%); 
+            border-color: #155724; 
+        }
+        .btn-primary:hover { 
+            background: linear-gradient(135deg, #218838 0%, #1e7e34 100%); 
+            color: white;
+        }
+        .combo-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #012169 0%, #1a3a8a 100%);
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            margin: 0 2px;
+            border: 2px solid #E4002B;
+            font-size: 14px;
+        }
+        .history-item {
+            padding: 15px;
+            margin: 12px 0;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            border-left: 6px solid #E4002B;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        .history-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .oz-symbol {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .draw-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #012169;
+        }
+        .large-number {
+            font-size: 36px;
+            color: #E4002B;
+            font-weight: 900;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="oz-header">
+            <div class="oz-symbol">🇦🇺🎱</div>
+            <h1>AUSTRALIA OZ LOTTO</h1>
+            <p class="oz-subtitle">1 to 47 • Choose 10 Numbers</p>
+            <p>Complete generator for all 1,068,336,520 possible combinations</p>
+            <div class="jackpot-display">
+                🎱 All Possible Combinations: 1,068,336,520
+            </div>
+        </div>
+
+        <div class="draw-info">
+            <h4 style="margin-top: 0; color: #012169;">📅 Oz Lotto Draw Schedule</h4>
+            <p><strong>Draws:</strong> Every Tuesday night at 8:30 PM AEST</p>
+            <p><strong>Entry Cost:</strong> $1.30 per game (standard play)</p>
+            <p><strong>Division 1 Odds:</strong> 1 in 45,379,620 (with 2 supplementary numbers)</p>
+        </div>
+
+        <div class="stats">
+            <h3>📊 Game Information</h3>
+            <div class="large-number">1,068,336,520</div>
+            <p><strong>Total Possible 10-Number Combinations:</strong> <span style="color: #E4002B; font-size: 24px;">1,068,336,520</span></p>
+            <p><strong>Total Pages (1,000 per page):</strong> 1,068,337 pages</p>
+            <p><strong>Note:</strong> This shows all possible 10-number combinations from 1-47</p>
+            <p><em>Oz Lotto draws 7 main numbers plus 2 supplementary numbers from these 10-number combinations</em></p>
+        </div>
+
+        <div class="info-box">
+            <h3>✨ About This Generator</h3>
+            <p>This tool generates <strong>ALL 1,068,336,520 possible combinations</strong> for Australia Oz Lotto 10-number games.</p>
+            <p>Every combination from [1,2,3,4,5,6,7,8,9,10] to [38,39,40,41,42,43,44,45,46,47] is mathematically generated.</p>
+            <p><strong>Features:</strong> Find exact positions, navigate pages, search history, random samples</p>
+        </div>
+
+        <div class="search-container">
+            <h3>🔍 Find Any Combination</h3>
+            <p>Enter 10 numbers from 1-47 separated by commas</p>
+            <input type="text" id="searchInput" class="search-input" placeholder="1,5,10,15,20,25,30,35,40,45">
+            <button onclick="calculateExactPosition()" class="btn-primary">Find Exact Position</button>
+            <button onclick="clearSearch()">Clear Search</button>
+            <div id="loading" class="loading">Calculating exact position...</div>
+            <div id="searchResult" class="search-result"></div>
+            <div id="navigationButtons" class="navigation-buttons"></div>
+        </div>
+
+        <div class="search-history" id="searchHistoryContainer" style="display: none;">
+            <h4>📋 Search History (This Session)</h4>
+            <p><small>Click on any previous search to navigate back to it</small></p>
+            <div id="searchHistoryList"></div>
+            <button onclick="clearSearchHistory()" style="margin-top: 15px; background: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Clear History</button>
+        </div>
+
+        <div class="controls">
+            <button onclick="generateCombinations(1)">🎱 First Page</button>
+            <button onclick="generateCombinations(currentPage - 1)">← Previous Page</button>
+            <button onclick="generateCombinations(currentPage + 1)">Next Page →</button>
+            <button onclick="goToSpecificPage()">Go to Page</button>
+            <button onclick="downloadCurrentPage()">💾 Download Page</button>
+            <button onclick="generateRandomSample()">🎲 Random Sample (50)</button>
+        </div>
+
+        <div class="page-info">
+            📄 Page: <span id="currentPage">0</span> of <span id="totalPages">1,068,337</span> | 
+            Showing: <span id="comboRange">0-0</span> |
+            Jump: <input type="number" id="pageJumpInput" placeholder="Page #" min="1" max="1068337">
+        </div>
+
+        <div id="combinationsContainer" class="combinations">
+            <!-- Combinations will appear here -->
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const combosPerPage = 1000;
+        const totalCombinations = 1068336520; // C(47,10) = 1,068,336,520
+        const totalPages = Math.ceil(totalCombinations / combosPerPage); // 1,068,337
+        let currentCombinations = [];
+        let lastSearchedCombination = null;
+        
+        // In-memory search history
+        let searchHistory = [];
+
+        // Pre-calculate binomial coefficients for faster computation
+        const binomialCache = new Map();
+        
+        function binomialCoefficient(n, k) {
+            if (k < 0 || k > n) return 0;
+            if (k === 0 || k === n) return 1;
+            
+            const key = `${n},${k}`;
+            if (binomialCache.has(key)) return binomialCache.get(key);
+            
+            // Use iterative calculation to avoid factorial overflow
+            if (k > n - k) {
+                k = n - k;
+            }
+            
+            let result = 1;
+            for (let i = 1; i <= k; i++) {
+                result = result * (n - k + i) / i;
+            }
+            
+            binomialCache.set(key, Math.round(result));
+            return Math.round(result);
+        }
+
+        document.getElementById('totalPages').textContent = totalPages.toLocaleString();
+        updateSearchHistoryDisplay();
+
+        function calculateLexicographicalPosition(combination) {
+            const sortedCombo = [...combination].sort((a, b) => a - b);
+            let position = 1;
+            const n = 47;
+            const k = 10;
+            
+            for (let i = 0; i < k; i++) {
+                const currentNumber = sortedCombo[i];
+                const prevNumber = (i === 0) ? 0 : sortedCombo[i - 1];
+                
+                for (let num = prevNumber + 1; num < currentNumber; num++) {
+                    const remainingPositions = k - i - 1;
+                    const remainingNumbers = n - num;
+                    position += binomialCoefficient(remainingNumbers, remainingPositions);
+                }
+            }
+            
+            return position;
+        }
+
+        function getCombinationAtPosition(position) {
+            if (position < 1 || position > totalCombinations) return null;
+            
+            let remaining = position - 1;
+            const combo = [];
+            let current = 1;
+            const n = 47;
+            const k = 10;
+            
+            for (let i = 0; i < k; i++) {
+                const spotsLeft = k - i - 1;
+                
+                for (let num = current; num <= n; num++) {
+                    const combs = binomialCoefficient(n - num, spotsLeft);
+                    
+                    if (remaining < combs) {
+                        combo.push(num);
+                        current = num + 1;
+                        break;
+                    } else {
+                        remaining -= combs;
+                    }
+                }
+            }
+            
+            return combo;
+        }
+
+        function generateCombinations(page) {
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+            
+            const container = document.getElementById('combinationsContainer');
+            const comboRange = document.getElementById('comboRange');
+            const currentPageElem = document.getElementById('currentPage');
+            
+            container.innerHTML = '';
+            currentPage = page;
+            currentPageElem.textContent = currentPage.toLocaleString();
+            
+            const startIdx = (page - 1) * combosPerPage + 1;
+            const endIdx = Math.min(startIdx + combosPerPage - 1, totalCombinations);
+            comboRange.textContent = `${startIdx.toLocaleString()}-${endIdx.toLocaleString()}`;
+            
+            clearSearchHighlights();
+            
+            // Show fewer combinations at once to prevent browser slowdown
+            const displayLimit = Math.min(combosPerPage, 200);
+            
+            for (let i = 0; i < displayLimit && (startIdx + i) <= totalCombinations; i++) {
+                const comboNumber = startIdx + i;
+                const combo = getCombinationAtPosition(comboNumber);
+                
+                const comboElement = document.createElement('div');
+                comboElement.className = 'combo';
+                comboElement.id = `combo-${comboNumber}`;
+                
+                const comboStr = JSON.stringify(combo);
+                const isSearched = searchHistory.some(item => item.comboStr === comboStr);
+                if (isSearched) {
+                    comboElement.classList.add('searched');
+                }
+                
+                if (lastSearchedCombination && JSON.stringify(combo) === JSON.stringify(lastSearchedCombination.combination)) {
+                    comboElement.classList.add('exact-match');
+                }
+                
+                const comboDisplay = combo.map(num => 
+                    `<span class="combo-number">${num}</span>`
+                ).join(' ');
+                
+                comboElement.innerHTML = `
+                    <div style="color: #012169; margin-bottom: 8px; font-size: 14px;">
+                        Combination #${comboNumber.toLocaleString()}
+                    </div>
+                    <div style="font-size: 16px; margin: 10px 0; line-height: 1.4;">
+                        ${comboDisplay}
+                    </div>
+                    <div style="font-size: 11px; color: #666;">
+                        [${combo.join(', ')}]
+                    </div>
+                `;
+                container.appendChild(comboElement);
+            }
+            
+            if (lastSearchedCombination) {
+                setTimeout(() => {
+                    const exactMatch = document.querySelector('.combo.exact-match');
+                    if (exactMatch) {
+                        exactMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 100);
+            }
+            
+            // Show message if we're limiting display
+            if (displayLimit < combosPerPage) {
+                const message = document.createElement('div');
+                message.style.gridColumn = '1 / -1';
+                message.style.textAlign = 'center';
+                message.style.padding = '20px';
+                message.style.background = '#f8f9fa';
+                message.style.borderRadius = '10px';
+                message.style.marginTop = '20px';
+                message.innerHTML = `
+                    <div style="color: #012169; font-weight: 600;">
+                        ⚠️ Showing ${displayLimit.toLocaleString()} of ${Math.min(combosPerPage, totalCombinations - startIdx + 1).toLocaleString()} combinations on this page
+                    </div>
+                    <div style="color: #666; font-size: 14px; margin-top: 10px;">
+                        Display limited for performance. All ${totalCombinations.toLocaleString()} combinations are mathematically accessible.
+                    </div>
+                `;
+                container.appendChild(message);
+            }
+        }
+
+        function goToSpecificPage() {
+            const pageInput = document.getElementById('pageJumpInput');
+            const pageNum = parseInt(pageInput.value);
+            if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+                generateCombinations(pageNum);
+            } else {
+                alert(`Please enter a page number between 1 and ${totalPages.toLocaleString()}`);
+            }
+        }
+
+        function generateRandomSample() {
+            const container = document.getElementById('combinationsContainer');
+            const comboRange = document.getElementById('comboRange');
+            const currentPageElem = document.getElementById('currentPage');
+            
+            container.innerHTML = '';
+            currentPage = 0;
+            currentPageElem.textContent = 'Random Sample';
+            comboRange.textContent = '50 random combinations';
+            
+            clearSearchHighlights();
+            
+            for (let i = 1; i <= 50; i++) {
+                const randomPos = Math.floor(Math.random() * totalCombinations) + 1;
+                const combo = getCombinationAtPosition(randomPos);
+                
+                const comboElement = document.createElement('div');
+                comboElement.className = 'combo';
+                comboElement.id = `combo-${i}`;
+                
+                const comboStr = JSON.stringify(combo);
+                const isSearched = searchHistory.some(item => item.comboStr === comboStr);
+                if (isSearched) {
+                    comboElement.classList.add('searched');
+                }
+                
+                const comboDisplay = combo.map(num => 
+                    `<span class="combo-number">${num}</span>`
+                ).join(' ');
+                
+                comboElement.innerHTML = `
+                    <div style="color: #E4002B; background: #012169; padding: 5px; border-radius: 5px; margin-bottom: 8px; font-size: 14px;">
+                        🎲 Random #${i}
+                    </div>
+                    <div style="font-size: 16px; margin: 10px 0; line-height: 1.4;">
+                        ${comboDisplay}
+                    </div>
+                    <div style="font-size: 11px; color: #666;">
+                        Position: ${randomPos.toLocaleString()}
+                    </div>
+                `;
+                container.appendChild(comboElement);
+            }
+        }
+
+        function calculateExactPosition() {
+            const searchInput = document.getElementById('searchInput').value;
+            const searchResult = document.getElementById('searchResult');
+            const navigationButtons = document.getElementById('navigationButtons');
+            const loading = document.getElementById('loading');
+            
+            clearSearchHighlights();
+            navigationButtons.innerHTML = '';
+            
+            if (!searchInput.trim()) {
+                searchResult.innerHTML = '<span style="color: #666;">Please enter numbers to search</span>';
+                return;
+            }
+            
+            let searchNumbers;
+            try {
+                searchNumbers = searchInput.split(',')
+                    .map(num => parseInt(num.trim()))
+                    .filter(num => !isNaN(num) && num >= 1 && num <= 47);
+                    
+                if (searchNumbers.length !== 10) {
+                    searchResult.innerHTML = '<span style="color: #c62828;"><strong>Error:</strong> Please enter exactly 10 numbers between 1 and 47</span>';
+                    searchResult.className = 'search-result not-found';
+                    return;
+                }
+                
+                if (new Set(searchNumbers).size !== 10) {
+                    searchResult.innerHTML = '<span style="color: #c62828;"><strong>Error:</strong> Duplicate numbers found. Please enter 10 unique numbers.</span>';
+                    searchResult.className = 'search-result not-found';
+                    return;
+                }
+                
+                searchNumbers.sort((a, b) => a - b);
+                
+            } catch (error) {
+                searchResult.innerHTML = '<span style="color: #c62828;"><strong>Error:</strong> Invalid format. Use: 1,5,10,15,20,25,30,35,40,45</span>';
+                searchResult.className = 'search-result not-found';
+                return;
+            }
+            
+            loading.classList.add('active');
+            searchResult.innerHTML = '';
+            
+            setTimeout(() => {
+                const exactPosition = calculateLexicographicalPosition(searchNumbers);
+                const exactPage = Math.ceil(exactPosition / combosPerPage);
+                
+                lastSearchedCombination = {
+                    combination: searchNumbers,
+                    exactPosition: exactPosition,
+                    exactPage: exactPage
+                };
+                
+                addToSearchHistory(searchNumbers, exactPosition, exactPage);
+                
+                const comboDisplay = searchNumbers.map(num => 
+                    `<span class="combo-number">${num}</span>`
+                ).join(' ');
+                
+                searchResult.innerHTML = `
+                    <div style="font-size: 24px; color: #012169; margin-bottom: 15px;">
+                        🎱 Oz Lotto Combination Found!
+                    </div>
+                    <div style="font-size: 20px; margin: 15px 0; line-height: 1.5;">
+                        ${comboDisplay}
+                    </div>
+                    <div style="font-size: 18px; margin: 10px 0;">
+                        <strong>Position:</strong> ${exactPosition.toLocaleString()} of ${totalCombinations.toLocaleString()}
+                    </div>
+                    <div style="font-size: 18px; margin: 10px 0;">
+                        <strong>Page:</strong> ${exactPage.toLocaleString()} of ${totalPages.toLocaleString()}
+                    </div>
+                `;
+                searchResult.className = 'search-result info';
+                
+                navigationButtons.innerHTML = `
+                    <button onclick="goToExactPage(${exactPage})" class="btn-primary" style="font-size: 20px; padding: 18px 30px;">
+                        Go to Page ${exactPage.toLocaleString()}
+                    </button>
+                `;
+                
+                loading.classList.remove('active');
+                goToExactPage(exactPage);
+                
+            }, 100);
+        }
+
+        function addToSearchHistory(combination, exactPosition, exactPage) {
+            const comboStr = JSON.stringify(combination);
+            const timestamp = new Date().toLocaleString();
+            
+            const existingIndex = searchHistory.findIndex(item => item.comboStr === comboStr);
+            
+            const historyItem = {
+                combination: [...combination],
+                comboStr: comboStr,
+                exactPosition: exactPosition,
+                exactPage: exactPage,
+                timestamp: timestamp
+            };
+            
+            if (existingIndex !== -1) {
+                searchHistory[existingIndex] = historyItem;
+            } else {
+                searchHistory.unshift(historyItem);
+                if (searchHistory.length > 15) {
+                    searchHistory.pop();
+                }
+            }
+            
+            updateSearchHistoryDisplay();
+        }
+
+        function updateSearchHistoryDisplay() {
+            const historyContainer = document.getElementById('searchHistoryContainer');
+            const historyList = document.getElementById('searchHistoryList');
+            
+            if (searchHistory.length === 0) {
+                historyContainer.style.display = 'none';
+                return;
+            }
+            
+            historyContainer.style.display = 'block';
+            historyList.innerHTML = '';
+            
+            searchHistory.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                
+                // Display first 5 numbers only in history to save space
+                const displayedCombo = item.combination.slice(0, 5);
+                const remainingCount = item.combination.length - 5;
+                
+                const comboDisplay = displayedCombo.map(num => 
+                    `<span style="display: inline-block; width: 24px; height: 24px; background: #012169; color: white; border-radius: 50%; text-align: center; line-height: 24px; margin: 0 2px; font-size: 11px; border: 2px solid #E4002B;">${num}</span>`
+                ).join('');
+                
+                historyItem.innerHTML = `
+                    <div style="font-weight: bold; color: #012169; margin-bottom: 5px;">
+                        ${comboDisplay}
+                        ${remainingCount > 0 ? `<span style="font-size: 11px; color: #666;">+${remainingCount} more</span>` : ''}
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                        <span>
+                            <span class="badge">Pos: ${item.exactPosition.toLocaleString()}</span>
+                            <span class="badge">Page: ${item.exactPage.toLocaleString()}</span>
+                        </span>
+                        <small style="color: #666;">${item.timestamp}</small>
+                    </div>
+                `;
+                historyItem.onclick = () => {
+                    document.getElementById('searchInput').value = item.combination.join(', ');
+                    lastSearchedCombination = {
+                        combination: item.combination,
+                        exactPosition: item.exactPosition,
+                        exactPage: item.exactPage
+                    };
+                    goToExactPage(item.exactPage);
+                };
+                historyList.appendChild(historyItem);
+            });
+        }
+
+        function clearSearchHistory() {
+            if (confirm('Clear all search history for this session?')) {
+                searchHistory = [];
+                updateSearchHistoryDisplay();
+                generateCombinations(currentPage);
+            }
+        }
+
+        function goToExactPage(page) {
+            document.getElementById('pageJumpInput').value = page;
+            generateCombinations(page);
+        }
+
+        function downloadCurrentPage() {
+            // Only download visible combinations
+            const combos = Array.from(document.querySelectorAll('.combo'))
+                .slice(0, 200) // Limit to 200 for performance
+                .map(el => {
+                    const text = el.innerText || el.textContent;
+                    return text.replace(/🎲 Random #\d+|🎱 Combination #\d+|🔍/g, '').trim();
+                })
+                .join('\n');
+            
+            const blob = new Blob([`Australia Oz Lotto Combinations - Page ${currentPage}\nGenerated: ${new Date().toLocaleString()}\nTotal Combinations: 1,068,336,520\n\n${combos}`], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `OzLotto_Page_${currentPage}_Combinations.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResult').innerHTML = '';
+            document.getElementById('searchResult').className = 'search-result';
+            document.getElementById('navigationButtons').innerHTML = '';
+            document.getElementById('loading').classList.remove('active');
+            lastSearchedCombination = null;
+            clearSearchHighlights();
+        }
+
+        function clearSearchHighlights() {
+            const highlighted = document.querySelectorAll('.combo.exact-match');
+            highlighted.forEach(el => {
+                el.classList.remove('exact-match');
+            });
+        }
+
+        // Initialize with first page
+        generateCombinations(1);
+        
+        // Add performance warning for large dataset
+        document.addEventListener('DOMContentLoaded', function() {
+            const warning = document.createElement('div');
+            warning.style.background = '#fff3cd';
+            warning.style.color = '#856404';
+            warning.style.padding = '15px';
+            warning.style.borderRadius = '8px';
+            warning.style.margin = '20px 0';
+            warning.style.border = '2px solid #ffeaa7';
+            warning.innerHTML = `
+                <div style="font-weight: 700; margin-bottom: 8px;">⚠️ Performance Note:</div>
+                <div style="font-size: 14px;">
+                    Oz Lotto has <strong>1.07 billion combinations</strong>. The generator shows 200 combinations per page for optimal performance. 
+                    Use the search function to find specific combinations instantly.
+                </div>
+            `;
+            document.querySelector('.stats').after(warning);
+        });
+    </script>
+</body>
+</html>
