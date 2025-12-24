@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 All Future Draws Generator</title>
+    <style>
+        :root {
+            --primary: #9c27b0;
+            --secondary: #ff9800;
+            --accent: #f44336;
+            --success: #4caf50;
+            --gold: #ffeb3b;
+            --light: #f5f5f5;
+            --dark: #333;
+            --blue: #2196f3;
+            --green: #8bc34a;
+            --purple: #673ab7;
+            --teal: #009688;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, 
+                #ff0080 0%, 
+                #ff8c00 25%, 
+                #40e0d0 50%, 
+                #ff0080 75%, 
+                #ff8c00 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        .main-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        .main-header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border: 8px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, 
+                rgba(255,255,255,0.95) 0%,
+                rgba(255,248,220,0.95) 100%);
+        }
+        
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                #009639 0%, #009639 20%,
+                #ce1126 20%, #ce1126 40%,
+                #0c2461 40%, #0c2461 60%,
+                #ff6b6b 60%, #ff6b6b 80%,
+                #ff0000 80%, #ff0000 100%);
+        }
+        
+        .main-header::after {
+            content: '🌍🎰💰';
+            position: absolute;
+            bottom: -40px;
+            right: -40px;
+            font-size: 200px;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+        
+        .main-header h1 {
+            font-size: 56px;
+            color: transparent;
+            background: linear-gradient(135deg, 
+                var(--purple), 
+                var(--accent), 
+                var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+        
+        .main-header p {
+            font-size: 22px;
+            color: #666;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+        
+        /* Rotating Slogans */
+        .slogan-rotator {
+            height: 60px;
+            overflow: hidden;
+            margin: 30px auto;
+            max-width: 800px;
+        }
+        
+        .slogan-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: sloganSlide 20s infinite;
+        }
+        
+        @keyframes sloganSlide {
+            0%, 100% { transform: translateY(0); }
+            5% { transform: translateY(0); }
+            15% { transform: translateY(-60px); }
+            25% { transform: translateY(-120px); }
+            35% { transform: translateY(-180px); }
+            45% { transform: translateY(-240px); }
+            55% { transform: translateY(-300px); }
+            65% { transform: translateY(-360px); }
+            75% { transform: translateY(-420px); }
+            85% { transform: translateY(-480px); }
+            95% { transform: translateY(-540px); }
+        }
+        
+        .slogan {
+            font-size: 26px;
+            font-weight: 900;
+            color: transparent;
+            background: linear-gradient(135deg, var(--purple), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .pricing-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, 
+                var(--gold) 0%, 
+                #ff9800 50%, 
+                var(--accent) 100%);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 40px;
+            font-weight: 900;
+            font-size: 28px;
+            margin: 20px 0;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+            border: 4px solid white;
+            animation: pulseGlow 2s infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+            }
+            50% { 
+                box-shadow: 0 10px 35px rgba(255, 107, 107, 0.8), 
+                          0 0 20px rgba(255, 107, 107, 0.6);
+            }
+        }
+        
+        /* Premium Names Badges */
+        .premium-names {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 50px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: 3px solid var(--gold);
+        }
+        
+        .premium-badge {
+            background: linear-gradient(135deg, var(--purple), var(--blue));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: badgePulse 3s infinite;
+            text-align: center;
+        }
+        
+        .premium-badge:nth-child(2) {
+            background: linear-gradient(135deg, var(--accent), #ff9800);
+            animation-delay: 0.5s;
+        }
+        
+        .premium-badge:nth-child(3) {
+            background: linear-gradient(135deg, var(--success), var(--teal));
+            animation-delay: 1s;
+        }
+        
+        .premium-badge:nth-child(4) {
+            background: linear-gradient(135deg, #ff4081, #7b1fa2);
+            animation-delay: 1.5s;
+        }
+        
+        .premium-badge:nth-child(5) {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            animation-delay: 2s;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Slogan Grid */
+        .slogan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 50px 0;
+        }
+        
+        .slogan-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 5px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .slogan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .slogan-card:nth-child(1) {
+            border-top-color: var(--purple);
+        }
+        
+        .slogan-card:nth-child(2) {
+            border-top-color: var(--accent);
+        }
+        
+        .slogan-card:nth-child(3) {
+            border-top-color: var(--success);
+        }
+        
+        .slogan-card:nth-child(4) {
+            border-top-color: var(--blue);
+        }
+        
+        .slogan-card p {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        /* Countries Grid */
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-bottom: 70px;
+        }
+        
+        .country-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        
+        .country-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            box-shadow: 0 35px 70px rgba(0,0,0,0.4);
+        }
+        
+        .country-card:hover .country-header {
+            transform: scale(1.05);
+        }
+        
+        .country-header {
+            padding: 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            transition: transform 0.5s ease;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .country-header h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .country-header .trophy {
+            font-size: 50px;
+            animation: bounce 2s infinite;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
+        }
+        
+        .country-flag {
+            font-size: 100px;
+            margin-bottom: 20px;
+            filter: drop-shadow(3px 3px 3px rgba(0,0,0,0.3));
+        }
+        
+        .country-header p {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .country-header .mini-flag {
+            font-size: 30px;
+            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
+        }
+        
+        .country-details {
+            padding: 35px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 350px;
+        }
+        
+        .country-details p {
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.7;
+            font-size: 17px;
+        }
+        
+        .lottery-info {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 8px solid;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .lottery-info h4 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .subscribe-btn {
+            display: block;
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(135deg, var(--success), #2e7d32);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .subscribe-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .subscribe-btn:hover::before {
+            left: 100%;
+        }
+        
+        .subscribe-btn:hover {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(46, 125, 50, 0.4);
+        }
+        
+        /* NEW ACCESS TOOL BUTTON */
+        .access-tool-btn {
+            display: block;
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(135deg, var(--blue), #1565c0);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .access-tool-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .access-tool-btn:hover::before {
+            left: 100%;
+        }
+        
+        .access-tool-btn:hover {
+            background: linear-gradient(135deg, #1565c0, #0d47a1);
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(21, 101, 192, 0.4);
+        }
+        
+        .price-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), #ff9800);
+            color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 900;
+            margin-top: 15px;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-size: 22px;
+        }
+        
+        /* Country-specific colors */
+        .uae-card .country-header {
+            background: linear-gradient(135deg, #009639 0%, #ce1126 50%, #ffd700 100%);
+            border-left: 8px solid #ffd700;
+        }
+        
+        .uae-card .lottery-info {
+            border-left-color: #009639;
+        }
+        
+        .usa-card .country-header {
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 50%, #ff6b6b 100%);
+            border-left: 8px solid #ffd700;
+        }
+        
+        .usa-card .lottery-info {
+            border-left-color: #0c2461;
+        }
+        
+        .europe-card .country-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #ff6b6b 100%);
+            border-left: 8px solid #ffd700;
+        }
+        
+        .europe-card .lottery-info {
+            border-left-color: #1e3c72;
+        }
+        
+        .australia-card .country-header {
+            background: linear-gradient(135deg, #012169 0%, #E4002B 50%, #ffd700 100%);
+            border-left: 8px solid #ffd700;
+        }
+        
+        .australia-card .lottery-info {
+            border-left-color: #012169;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, 
+                var(--purple), var(--blue), var(--teal));
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--secondary);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+        }
+        
+        .feature-card .icon {
+            font-size: 60px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-card h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        /* Access Keys Section */
+        .access-keys {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, var(--purple), var(--accent));
+            border-radius: 25px;
+            margin: 60px 0;
+            color: white;
+        }
+        
+        .access-keys h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        
+        .keys-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .key-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Security Badges */
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .security-badge {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            min-width: 220px;
+            transition: all 0.3s ease;
+        }
+        
+        .security-badge:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        .security-badge-icon {
+            font-size: 32px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .security-badge:nth-child(1) .security-badge-icon {
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+        }
+        
+        .security-badge:nth-child(2) .security-badge-icon {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .security-badge:nth-child(3) .security-badge-icon {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        /* Footer */
+        .main-footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            margin-top: 70px;
+            color: #666;
+            border: 5px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .main-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, 
+                var(--purple), var(--blue), var(--teal), var(--success), var(--accent));
+        }
+        
+        .main-footer h3 {
+            font-size: 32px;
+            color: var(--purple);
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+        
+        /* Header Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            font-size: 20px;
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* SECURE AUTHENTICATION GATEWAY STYLES */
+        .auth-gateway {
+            display: none;
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            border: 3px solid #ffd700;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .auth-gateway.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* EuroDreams specific auth */
+        .eurodreams-auth {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
+
+        /* Mega Millions specific auth */
+        .megamillions-auth {
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .auth-header h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .auth-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .auth-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-input-group label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .auth-input {
+            padding: 14px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .auth-input:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .auth-input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .auth-submit-btn {
+            padding: 16px;
+            background: linear-gradient(135deg, #ffd700, #ff9800);
+            color: #0c2461;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .auth-submit-btn:hover {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+        }
+
+        .auth-submit-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .auth-error {
+            background: rgba(220, 38, 38, 0.2);
+            color: #ff6b6b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            display: none;
+            text-align: center;
+        }
+
+        .auth-error.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .auth-success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            display: none;
+            text-align: center;
+        }
+
+        .auth-success.show {
+            display: block;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.8;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .auth-toggle {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .auth-toggle-btn {
+            background: none;
+            border: none;
+            color: #ffd700;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+            padding: 5px;
+        }
+
+        .auth-toggle-btn:hover {
+            color: white;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .countries-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .countries-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-header h1 {
+                font-size: 42px;
+            }
+            
+            .pricing-badge {
+                font-size: 22px;
+                padding: 12px 25px;
+            }
+            
+            .country-header h2 {
+                font-size: 36px;
+            }
+            
+            .country-flag {
+                font-size: 80px;
+            }
+            
+            .slogan {
+                font-size: 22px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .main-header h1 {
+                font-size: 36px;
+            }
+            
+            .country-header h2 {
+                font-size: 28px;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+            }
+            
+            .subscribe-btn {
+                padding: 18px;
+                font-size: 20px;
+            }
+            
+            .access-tool-btn {
+                padding: 18px;
+                font-size: 20px;
+            }
+            
+            .slogan {
+                font-size: 20px;
+            }
+
+            .auth-gateway {
+                padding: 20px;
+            }
+        }
+        
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="particles" id="particles"></div>
+            <h1>🎰 ALL FUTURE DRAWS GENERATOR</h1>
+            <p>Access EVERY possible number combination for global lottery systems. Get lifetime access to complete mathematical generators, advanced analysis tools, and winning patterns.</p>
+            
+            <div class="slogan-rotator">
+                <div class="slogan-container">
+                    <div class="slogan">"Every Possible Winning Number - Guaranteed"</div>
+                    <div class="slogan">"Access All Future Draws - Today"</div>
+                    <div class="slogan">"The Complete Lottery Encyclopedia"</div>
+                    <div class="slogan">"Unlock Every Jackpot Possibility"</div>
+                    <div class="slogan">"All Numbers. All Combinations. All Yours."</div>
+                    <div class="slogan">"Lotto Vault Pro System"</div>
+                    <div class="slogan">"Jackpot Architect Suite"</div>
+                    <div class="slogan">"Winning Matrix Master"</div>
+                    <div class="slogan">"Fortune Algorithm Pro"</div>
+                    <div class="slogan">"Lotto Oracle System"</div>
+                </div>
+            </div>
+            
+            <div class="pricing-badge">
+                💰 $100 LIFETIME ACCESS PER GENERATOR
+            </div>
+            <p style="font-size: 20px; font-weight: 700; color: var(--purple);">One-time payment • No recurring fees • Instant access</p>
+        </header>
+        
+        <!-- Premium Names Section -->
+        <div class="premium-names">
+            <div class="premium-badge">LOTTO VAULT PRO</div>
+            <div class="premium-badge">JACKPOT ARCHITECT SUITE</div>
+            <div class="premium-badge">WINNING MATRIX MASTER</div>
+            <div class="premium-badge">FORTUNE ALGORITHM PRO</div>
+            <div class="premium-badge">BILLIONAIRE'S BLUEPRINT</div>
+        </div>
+        
+        <!-- Security Badges -->
+        <div class="security-badges">
+            <div class="security-badge">
+                <div class="security-badge-icon">🔒</div>
+                <div>
+                    <strong>Secure Payment</strong><br>
+                    <small>SSL Encrypted Transactions</small>
+                </div>
+            </div>
+            <div class="security-badge">
+                <div class="security-badge-icon">⚡</div>
+                <div>
+                    <strong>Instant Delivery</strong><br>
+                    <small>Access within seconds</small>
+                </div>
+            </div>
+            <div class="security-badge">
+                <div class="security-badge-icon">🛡️</div>
+                <div>
+                    <strong>Money Back Guarantee</strong><br>
+                    <small>30-day refund policy</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slogan Grid -->
+        <div class="slogan-grid">
+            <div class="slogan-card">
+                <p>🎯 Complete Lotto Matrix</p>
+                <p style="font-size: 16px; color: #666; margin-top: 10px;">Every combination mathematically calculated</p>
+            </div>
+            <div class="slogan-card">
+                <p>📊 Lottery Algorithm Pro</p>
+                <p style="font-size: 16px; color: #666; margin-top: 10px;">Advanced computational analysis</p>
+            </div>
+            <div class="slogan-card">
+                <p>🔑 Lotto Combination Keys</p>
+                <p style="font-size: 16px; color: #666; margin-top: 10px;">Unlock winning patterns</p>
+            </div>
+            <div class="slogan-card">
+                <p>🏆 Jackpot Access Codes</p>
+                <p style="font-size: 16px; color: #666; margin-top: 10px;">Direct path to jackpots</p>
+            </div>
+        </div>
+        
+        <!-- Countries Grid -->
+        <section class="countries-grid">
+            <!-- UAE Card -->
+            <div class="country-card uae-card">
+                <div class="country-header">
+                    <div class="country-flag">🇦🇪</div>
+                    <h2>UAE FAST 5 <span class="trophy">🏆</span></h2>
+                    <p><span class="mini-flag">🇦🇪</span> United Arab Emirates</p>
+                </div>
+                <div class="country-details">
+                    <p><strong>🎯 Format:</strong> 1 to 42 • Choose 5 Numbers</p>
+                    <p><strong>📊 Total Combinations:</strong> 850,668</p>
+                    <p><strong>⏰ Draws:</strong> Multiple times daily</p>
+                    <div class="lottery-info">
+                        <h4>🏆 About UAE FAST 5</h4>
+                        <p>Official UAE National Lottery with 5/42 format. Fast-paced draws, popular across Middle Eastern countries with frequent jackpot wins.</p>
+                    </div>
+                    <a href="#" class="subscribe-btn" onclick="redirectToPayment('UAE')">
+                        GET LIFETIME ACCESS
+                        <div class="price-tag">$100</div>
+                    </a>
+                    <a href="Accesstool_html_20251224_89543f.html" class="access-tool-btn">
+                        🔐 ACCESS THE TOOL
+                    </a>
+                </div>
+            </div>
+            
+            <!-- USA Card -->
+            <div class="country-card usa-card">
+                <div class="country-header">
+                    <div class="country-flag">🇺🇸</div>
+                    <h2>MEGA MILLIONS <span class="trophy">🏆</span></h2>
+                    <p><span class="mini-flag">🇺🇸</span> United States</p>
+                </div>
+                <div class="country-details">
+                    <p><strong>🎯 Format:</strong> 1 to 70 • Choose 5 Main Numbers</p>
+                    <p><strong>📊 Total Combinations:</strong> 12,103,014</p>
+                    <p><strong>💰 Largest Jackpot:</strong> $1.602 Billion</p>
+                    <div class="lottery-info">
+                        <h4>💎 World's Largest Jackpots</h4>
+                        <p>America's premier lottery with record-breaking billion-dollar jackpots. Drawings every Tuesday and Friday night.</p>
+                    </div>
+                    <a href="#" class="subscribe-btn" onclick="redirectToPayment('USA')">
+                        GET LIFETIME ACCESS
+                        <div class="price-tag">$100</div>
+                    </a>
+
+                    <!-- SECURE AUTHENTICATION GATEWAY FOR MEGA MILLIONS -->
+                    <div class="auth-gateway megamillions-auth" id="megamillionsAuth">
+                        <div class="auth-header">
+                            <h3>🔐 Mega Millions Secure Access</h3>
+                            <p>Enter your credentials to access the Mega Millions Generator Tool</p>
+                        </div>
+                        
+                        <form class="auth-form" id="megamillionsAuthForm">
+                            <div class="auth-input-group">
+                                <label for="megaAuthEmail">Email Address</label>
+                                <input type="email" id="megaAuthEmail" class="auth-input" placeholder="your.email@domain.com" required>
+                            </div>
+                            
+                            <div class="auth-input-group">
+                                <label for="megaAuthPassword">Access Passcode</label>
+                                <input type="password" id="megaAuthPassword" class="auth-input" placeholder="Enter 6-character passcode" required maxlength="6">
+                                <div style="font-size: 12px; margin-top: 5px; color: rgba(255,255,255,0.7);">Must be exactly 6 characters</div>
+                            </div>
+                            
+                            <button type="submit" class="auth-submit-btn" id="megaAuthSubmitBtn">Access Mega Millions Tool</button>
+                            
+                            <div class="auth-error" id="megaAuthErrorMessage">
+                                Invalid credentials. Please try again.
+                            </div>
+                            
+                            <div class="auth-success" id="megaAuthSuccessMessage">
+                                ✅ Authentication successful! Redirecting to Mega Millions tool...
+                            </div>
+                        </form>
+                        
+                        <div class="auth-footer">
+                            © SecureTool 2024 | Authorized access only
+                        </div>
+                        
+                        <div class="auth-toggle">
+                            <button type="button" class="auth-toggle-btn" onclick="toggleMegaMillionsAuthGateway()">Hide Authentication</button>
+                        </div>
+                    </div>
+
+                    <!-- ACCESS TOOL BUTTON (Triggers authentication) -->
+                    <button class="access-tool-btn" onclick="showMegaMillionsAuthGateway()">
+                        🔐 ACCESS THE TOOL
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Europe Card -->
+            <div class="country-card europe-card">
+                <div class="country-header">
+                    <div class="country-flag">🇪🇺</div>
+                    <h2>EURODREAMS <span class="trophy">🏆</span></h2>
+                    <p><span class="mini-flag">🇪🇺</span> Europe</p>
+                </div>
+                <div class="country-details">
+                    <p><strong>🎯 Format:</strong> 1 to 40 • Choose 6 Numbers</p>
+                    <p><strong>📊 Total Combinations:</strong> 3,838,380</p>
+                    <p><strong>🏆 Jackpot:</strong> Up to €20,000/month for 30 years</p>
+                    <div class="lottery-info">
+                        <h4>🎰 European Lottery System</h4>
+                        <p>Popular across European countries with favorable odds and regular draws. Unique prize structure with monthly payments.</p>
+                    </div>
+                    <a href="#" class="subscribe-btn" onclick="redirectToPayment('EUROPE')">
+                        GET LIFETIME ACCESS
+                        <div class="price-tag">$100</div>
+                    </a>
+
+                    <!-- SECURE AUTHENTICATION GATEWAY FOR EURODREAMS -->
+                    <div class="auth-gateway eurodreams-auth" id="eurodreamsAuth">
+                        <div class="auth-header">
+                            <h3>🔐 EuroDreams Secure Access</h3>
+                            <p>Enter your credentials to access the EuroDreams Generator Tool</p>
+                        </div>
+                        
+                        <form class="auth-form" id="eurodreamsAuthForm">
+                            <div class="auth-input-group">
+                                <label for="euroAuthEmail">Email Address</label>
+                                <input type="email" id="euroAuthEmail" class="auth-input" placeholder="your.email@domain.com" required>
+                            </div>
+                            
+                            <div class="auth-input-group">
+                                <label for="euroAuthPassword">Access Passcode</label>
+                                <input type="password" id="euroAuthPassword" class="auth-input" placeholder="Enter 6-character passcode" required maxlength="6">
+                                <div style="font-size: 12px; margin-top: 5px; color: rgba(255,255,255,0.7);">Must be exactly 6 characters</div>
+                            </div>
+                            
+                            <button type="submit" class="auth-submit-btn" id="euroAuthSubmitBtn">Access EuroDreams Tool</button>
+                            
+                            <div class="auth-error" id="euroAuthErrorMessage">
+                                Invalid credentials. Please try again.
+                            </div>
+                            
+                            <div class="auth-success" id="euroAuthSuccessMessage">
+                                ✅ Authentication successful! Redirecting to EuroDreams tool...
+                            </div>
+                        </form>
+                        
+                        <div class="auth-footer">
+                            © SecureTool 2024 | Authorized access only
+                        </div>
+                        
+                        <div class="auth-toggle">
+                            <button type="button" class="auth-toggle-btn" onclick="toggleEurodreamsAuthGateway()">Hide Authentication</button>
+                        </div>
+                    </div>
+
+                    <!-- ACCESS TOOL BUTTON (Triggers authentication) -->
+                    <button class="access-tool-btn" onclick="showEurodreamsAuthGateway()">
+                        🔐 ACCESS THE TOOL
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Australia Card -->
+            <div class="country-card australia-card">
+                <div class="country-header">
+                    <div class="country-flag">🇦🇺</div>
+                    <h2>OZ LOTTO <span class="trophy">🏆</span></h2>
+                    <p><span class="mini-flag">🇦🇺</span> Australia</p>
+                </div>
+                <div class="country-details">
+                    <p><strong>🎯 Format:</strong> 1 to 47 • Choose 7 Numbers</p>
+                    <p><strong>📊 Total Combinations:</strong> 62,891,499</p>
+                    <p><strong>💰 Jackpot Starts:</strong> $2 Million</p>
+                    <div class="lottery-info">
+                        <h4>🦘 Australian Lottery System</h4>
+                        <p>Australia's favorite lottery game. Draws every Tuesday night with jackpots starting at $2 million and frequently reaching $20+ million.</p>
+                    </div>
+                    <a href="#" class="subscribe-btn" onclick="redirectToPayment('AUSTRALIA')">
+                        GET LIFETIME ACCESS
+                        <div class="price-tag">$100</div>
+                    </a>
+                    <a href="Accesstool_html_20251224_89543f.html" class="access-tool-btn">
+                        🔐 ACCESS THE TOOL
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Access Keys Section -->
+        <div class="access-keys">
+            <h2>🔑 Access Keys & Passport Metaphors</h2>
+            <div class="keys-container">
+                <span class="key-badge">Winning Combination Vault</span>
+                <span class="key-badge">Lottery Access Passport</span>
+                <span class="key-badge">The Master Combination Set</span>
+                <span class="key-badge">Every Possible Combination</span>
+                <span class="key-badge">Total Lottery Universe</span>
+                <span class="key-badge">The Complete Lotto Library</span>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <section class="features-grid">
+            <div class="feature-card">
+                <div class="icon">🔢</div>
+                <h3>Complete Lotto Matrix</h3>
+                <p>Access ALL possible number combinations for each lottery system with mathematical precision</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔍</div>
+                <h3>Lottery Algorithm Pro</h3>
+                <p>Find exact positions of any combination instantly using combinatorial mathematics algorithms</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Probability Calculator Pro</h3>
+                <p>Pattern recognition, frequency analysis, and probability calculations for smart decisions</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">💾</div>
+                <h3>Lotto Combination Keys</h3>
+                <p>Download complete sets of combinations for offline analysis and research</p>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="main-footer">
+            <h3>🌐 ALL FUTURE DRAWS GENERATOR</h3>
+            <p style="font-size: 18px; margin: 20px 0; font-weight: 700; color: var(--purple);">
+                Lotto Vault Pro • Jackpot Architect Suite • Winning Matrix Master • Fortune Algorithm Pro
+            </p>
+            <p style="font-size: 18px; margin: 20px 0;">© 2024 All rights reserved. Mathematical analysis tool for entertainment purposes.</p>
+            <div style="margin-top: 30px; padding: 20px; background: rgba(0,0,0,0.05); border-radius: 12px;">
+                <p style="font-size: 14px; color: #666;">
+                    <strong>⚠️ Disclaimer:</strong> This is a mathematical analysis tool for educational and entertainment purposes only.<br>
+                    Not gambling advice. Users must be of legal age in their jurisdiction. Gamble responsibly.
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Function to redirect to Stripe payment page
+        function redirectToPayment(country) {
+            // Store selected country in localStorage
+            localStorage.setItem('selected_country', country);
+            
+            // Add your Stripe payment links here for each country
+            const stripeLinks = {
+                'UAE': '#', // Add your UAE Stripe link
+                'USA': '#', // Add your USA Stripe link
+                'EUROPE': '#', // Add your Europe Stripe link
+                'AUSTRALIA': '#' // Add your Australia Stripe link
+            };
+            
+            // Get the appropriate Stripe link
+            const stripeLink = stripeLinks[country] || '#';
+            
+            // Redirect to Stripe payment page
+            if (stripeLink !== '#') {
+                window.location.href = stripeLink;
+            } else {
+                alert('Payment link for ' + country + ' will be added soon!');
+            }
+        }
+        
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const emojis = ['💰', '🎰', '🎲', '🔢', '📊', '💎', '🏆', '💳', '⚡', '🎯'];
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // Random properties
+                const size = Math.random() * 15 + 10;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.fontSize = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Add hover effects to country cards
+        document.querySelectorAll('.country-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-20px) scale(1.03)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Add fade-in animation to cards
+            const cards = document.querySelectorAll('.country-card, .feature-card, .slogan-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.animation = 'fadeIn 0.5s forwards';
+            });
+        });
+
+        // MEGA MILLIONS AUTHENTICATION FUNCTIONS
+        function showMegaMillionsAuthGateway() {
+            const authGateway = document.getElementById('megamillionsAuth');
+            authGateway.classList.add('active');
+            
+            // Scroll to the authentication gateway
+            authGateway.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function toggleMegaMillionsAuthGateway() {
+            const authGateway = document.getElementById('megamillionsAuth');
+            authGateway.classList.toggle('active');
+        }
+
+        // EURODREAMS AUTHENTICATION FUNCTIONS
+        function showEurodreamsAuthGateway() {
+            const authGateway = document.getElementById('eurodreamsAuth');
+            authGateway.classList.add('active');
+            
+            // Scroll to the authentication gateway
+            authGateway.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function toggleEurodreamsAuthGateway() {
+            const authGateway = document.getElementById('eurodreamsAuth');
+            authGateway.classList.toggle('active');
+        }
+
+        // SHARED AUTHENTICATION FUNCTIONS
+        function sanitizeInput(input) {
+            return input
+                .replace(/[<>]/g, '')
+                .trim();
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Hidden password validation logic (DO NOT MODIFY OR REVEAL)
+        function validatePassword(passcode) {
+            // Security check: Must be exactly 6 characters
+            if (passcode.length !== 6) {
+                console.log('Validation failed: Not exactly 6 characters');
+                return false;
+            }
+            
+            // Initialize character type counters
+            let letterCount = 0;
+            let specialCharCount = 0;
+            let digitCount = 0;
+            
+            // Define allowed character sets
+            const letters = /[a-zA-Z]/;
+            const specialChars = /[!@#$%^&*]/;
+            const digits = /[0-9]/;
+            
+            // Check each character and count types
+            for (let char of passcode) {
+                if (letters.test(char)) {
+                    letterCount++;
+                } else if (specialChars.test(char)) {
+                    specialCharCount++;
+                } else if (digits.test(char)) {
+                    digitCount++;
+                } else {
+                    // Invalid character found
+                    console.log('Validation failed: Invalid character detected');
+                    return false;
+                }
+            }
+            
+            // Check for exact composition requirements
+            const isValid = letterCount === 3 && specialCharCount === 1 && digitCount === 2;
+            
+            if (!isValid) {
+                console.log(`Validation failed: Composition incorrect (Letters: ${letterCount}, Special: ${specialCharCount}, Digits: ${digitCount})`);
+            } else {
+                console.log('Validation passed: Access granted');
+            }
+            
+            return isValid;
+        }
+
+        // Setup Mega Millions authentication form
+        document.addEventListener('DOMContentLoaded', function() {
+            // MEGA MILLIONS AUTHENTICATION
+            const megaAuthForm = document.getElementById('megamillionsAuthForm');
+            if (megaAuthForm) {
+                const megaAuthEmail = document.getElementById('megaAuthEmail');
+                const megaAuthPassword = document.getElementById('megaAuthPassword');
+                const megaAuthErrorMessage = document.getElementById('megaAuthErrorMessage');
+                const megaAuthSuccessMessage = document.getElementById('megaAuthSuccessMessage');
+                const megaAuthSubmitBtn = document.getElementById('megaAuthSubmitBtn');
+                
+                megaAuthForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Reset messages
+                    megaAuthErrorMessage.classList.remove('show');
+                    megaAuthSuccessMessage.classList.remove('show');
+                    
+                    // Sanitize inputs
+                    const email = sanitizeInput(megaAuthEmail.value);
+                    const password = sanitizeInput(megaAuthPassword.value);
+                    
+                    // Validate email format
+                    if (!validateEmail(email)) {
+                        megaAuthErrorMessage.textContent = 'Please enter a valid email address.';
+                        megaAuthErrorMessage.classList.add('show');
+                        return;
+                    }
+                    
+                    // Validate password (using hidden logic)
+                    if (!validatePassword(password)) {
+                        megaAuthErrorMessage.textContent = 'Invalid credentials. Please try again.';
+                        megaAuthErrorMessage.classList.add('show');
+                        return;
+                    }
+                    
+                    // If validation passes
+                    console.log('Mega Millions Authentication successful. Redirecting to tool...');
+                    
+                    // Disable submit button to prevent multiple submissions
+                    megaAuthSubmitBtn.disabled = true;
+                    megaAuthSubmitBtn.textContent = 'Redirecting...';
+                    
+                    // Show success message
+                    megaAuthSuccessMessage.classList.add('show');
+                    
+                    // Redirect to the MEGA MILLIONS tool
+                    setTimeout(() => {
+                        window.location.href = 'MEGAMILLIONSUS_20251206_b6d7cb.html';
+                    }, 1500);
+                });
+                
+                // Real-time validation for password length indicator
+                megaAuthPassword.addEventListener('input', function() {
+                    const passcode = this.value;
+                    const requirementText = this.parentElement.querySelector('div');
+                    
+                    if (passcode.length === 6) {
+                        requirementText.style.color = '#4ade80';
+                        requirementText.textContent = '✓ 6 characters entered';
+                    } else if (passcode.length > 6) {
+                        this.value = this.value.substring(0, 6);
+                        requirementText.style.color = '#ef4444';
+                        requirementText.textContent = 'Maximum 6 characters';
+                    } else {
+                        requirementText.style.color = 'rgba(255,255,255,0.7)';
+                        requirementText.textContent = `${passcode.length}/6 characters`;
+                    }
+                });
+            }
+            
+            // EURODREAMS AUTHENTICATION
+            const euroAuthForm = document.getElementById('eurodreamsAuthForm');
+            if (euroAuthForm) {
+                const euroAuthEmail = document.getElementById('euroAuthEmail');
+                const euroAuthPassword = document.getElementById('euroAuthPassword');
+                const euroAuthErrorMessage = document.getElementById('euroAuthErrorMessage');
+                const euroAuthSuccessMessage = document.getElementById('euroAuthSuccessMessage');
+                const euroAuthSubmitBtn = document.getElementById('euroAuthSubmitBtn');
+                
+                euroAuthForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Reset messages
+                    euroAuthErrorMessage.classList.remove('show');
+                    euroAuthSuccessMessage.classList.remove('show');
+                    
+                    // Sanitize inputs
+                    const email = sanitizeInput(euroAuthEmail.value);
+                    const password = sanitizeInput(euroAuthPassword.value);
+                    
+                    // Validate email format
+                    if (!validateEmail(email)) {
+                        euroAuthErrorMessage.textContent = 'Please enter a valid email address.';
+                        euroAuthErrorMessage.classList.add('show');
+                        return;
+                    }
+                    
+                    // Validate password (using hidden logic)
+                    if (!validatePassword(password)) {
+                        euroAuthErrorMessage.textContent = 'Invalid credentials. Please try again.';
+                        euroAuthErrorMessage.classList.add('show');
+                        return;
+                    }
+                    
+                    // If validation passes
+                    console.log('EuroDreams Authentication successful. Redirecting to tool...');
+                    
+                    // Disable submit button to prevent multiple submissions
+                    euroAuthSubmitBtn.disabled = true;
+                    euroAuthSubmitBtn.textContent = 'Redirecting...';
+                    
+                    // Show success message
+                    euroAuthSuccessMessage.classList.add('show');
+                    
+                    // Redirect to the EURODREAMS tool
+                    setTimeout(() => {
+                        window.location.href = 'EURODREAMS FINAL_html_20251213_a365e9.html';
+                    }, 1500);
+                });
+                
+                // Real-time validation for password length indicator
+                euroAuthPassword.addEventListener('input', function() {
+                    const passcode = this.value;
+                    const requirementText = this.parentElement.querySelector('div');
+                    
+                    if (passcode.length === 6) {
+                        requirementText.style.color = '#4ade80';
+                        requirementText.textContent = '✓ 6 characters entered';
+                    } else if (passcode.length > 6) {
+                        this.value = this.value.substring(0, 6);
+                        requirementText.style.color = '#ef4444';
+                        requirementText.textContent = 'Maximum 6 characters';
+                    } else {
+                        requirementText.style.color = 'rgba(255,255,255,0.7)';
+                        requirementText.textContent = `${passcode.length}/6 characters`;
+                    }
+                });
+            }
+            
+            // Admin debugging console messages
+            console.log('Dual Authentication Gateway initialized');
+            console.log('Mega Millions Authentication system ready');
+            console.log('EuroDreams Authentication system ready');
+        });
+    </script>
+</body>
+</html>
