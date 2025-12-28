@@ -1,0 +1,283 @@
+<!-- Age Verification Popup -->
+<div id="ageVerificationPopup" class="age-popup" style="display: none;">
+    <div class="age-popup-content">
+        <div class="age-popup-header">
+            <div class="age-icon">🔞</div>
+            <h2>AGE VERIFICATION REQUIRED</h2>
+        </div>
+        
+        <div class="age-popup-body">
+            <p>This website contains content related to lottery and gambling systems.</p>
+            <p>You must be <strong>18 years or older</strong> to access this content.</p>
+            <p>By clicking "I AM 18 OR OLDER", you confirm that you meet the age requirement.</p>
+            
+            <div class="age-checkbox">
+                <input type="checkbox" id="ageConfirmation">
+                <label for="ageConfirmation">I confirm that I am 18 years of age or older</label>
+            </div>
+            
+            <div class="warning-text">
+                ⚠️ Gambling involves risk. Please play responsibly. 
+                If you have a gambling problem, seek help from professionals.
+            </div>
+        </div>
+        
+        <div class="age-popup-footer">
+            <button id="ageExitBtn" class="age-btn age-exit-btn">
+                🚫 EXIT SITE
+            </button>
+            <button id="ageConfirmBtn" class="age-btn age-confirm-btn" disabled>
+                ✅ I AM 18 OR OLDER
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Age Verification Popup Styles */
+    .age-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(156, 39, 176, 0.95) 50%, rgba(255, 152, 0, 0.95) 100%);
+        z-index: 99999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(10px);
+    }
+    
+    .age-popup-content {
+        background: white;
+        width: 90%;
+        max-width: 600px;
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+        border: 8px solid var(--gold, #ffeb3b);
+        animation: popupAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    @keyframes popupAppear {
+        0% { transform: scale(0.8); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .age-popup-header {
+        background: linear-gradient(135deg, #9c27b0, #f44336);
+        color: white;
+        padding: 30px;
+        text-align: center;
+        border-bottom: 5px solid #ffeb3b;
+    }
+    
+    .age-popup-header h2 {
+        font-size: 32px;
+        margin: 15px 0 0 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .age-icon {
+        font-size: 70px;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+    
+    .age-popup-body {
+        padding: 40px;
+        color: #333;
+    }
+    
+    .age-popup-body p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    
+    .age-popup-body strong {
+        color: #9c27b0;
+    }
+    
+    .age-checkbox {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 15px;
+        margin: 30px 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border: 2px solid #e0e0e0;
+    }
+    
+    .age-checkbox input[type="checkbox"] {
+        width: 25px;
+        height: 25px;
+        accent-color: #4caf50;
+        cursor: pointer;
+    }
+    
+    .age-checkbox label {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+    }
+    
+    .warning-text {
+        background: #fff3cd;
+        border: 2px solid #ffeaa7;
+        border-radius: 12px;
+        padding: 15px;
+        color: #856404;
+        font-size: 16px;
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .age-popup-footer {
+        display: flex;
+        padding: 30px;
+        gap: 20px;
+        background: #f8f9fa;
+        border-top: 3px solid #e9ecef;
+    }
+    
+    .age-btn {
+        flex: 1;
+        padding: 20px;
+        border: none;
+        border-radius: 15px;
+        font-size: 20px;
+        font-weight: 900;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .age-exit-btn {
+        background: linear-gradient(135deg, #f44336, #d32f2f);
+        color: white;
+    }
+    
+    .age-exit-btn:hover {
+        background: linear-gradient(135deg, #d32f2f, #b71c1c);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(244, 67, 54, 0.4);
+    }
+    
+    .age-confirm-btn {
+        background: linear-gradient(135deg, #4caf50, #2e7d32);
+        color: white;
+        opacity: 0.5;
+    }
+    
+    .age-confirm-btn:not(:disabled) {
+        opacity: 1;
+    }
+    
+    .age-confirm-btn:not(:disabled):hover {
+        background: linear-gradient(135deg, #2e7d32, #1b5e20);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .age-popup-content {
+            width: 95%;
+            margin: 20px;
+        }
+        
+        .age-popup-header h2 {
+            font-size: 24px;
+        }
+        
+        .age-popup-body {
+            padding: 25px;
+        }
+        
+        .age-popup-footer {
+            flex-direction: column;
+        }
+        
+        .age-btn {
+            font-size: 18px;
+            padding: 18px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if user already verified age
+        const ageVerified = localStorage.getItem('ageVerified');
+        
+        if (!ageVerified) {
+            // Show the age verification popup
+            const agePopup = document.getElementById('ageVerificationPopup');
+            agePopup.style.display = 'flex';
+            
+            // Disable scrolling on the body
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Get DOM elements
+        const ageCheckbox = document.getElementById('ageConfirmation');
+        const confirmBtn = document.getElementById('ageConfirmBtn');
+        const exitBtn = document.getElementById('ageExitBtn');
+        
+        // Enable confirm button when checkbox is checked
+        ageCheckbox.addEventListener('change', function() {
+            confirmBtn.disabled = !this.checked;
+        });
+        
+        // Confirm button click handler
+        confirmBtn.addEventListener('click', function() {
+            if (ageCheckbox.checked) {
+                // Store verification in localStorage for 24 hours
+                localStorage.setItem('ageVerified', 'true');
+                localStorage.setItem('ageVerifiedTimestamp', Date.now());
+                
+                // Hide popup and restore scrolling
+                document.getElementById('ageVerificationPopup').style.display = 'none';
+                document.body.style.overflow = 'auto';
+                
+                // Optional: Add animation for content appearing
+                document.querySelector('.main-container').style.animation = 'fadeIn 1s ease';
+            }
+        });
+        
+        // Exit button click handler
+        exitBtn.addEventListener('click', function() {
+            // Redirect to a safe site or show message
+            const exitMessages = [
+                "Thank you for being responsible.",
+                "Redirecting to safer content...",
+                "Please visit again when you're older."
+            ];
+            
+            const randomMessage = exitMessages[Math.floor(Math.random() * exitMessages.length)];
+            alert(randomMessage);
+            
+            // Redirect to Google (you can change this to any site)
+            window.location.href = 'https://www.google.com';
+        });
+        
+        // Optional: Auto-remove verification after 24 hours
+        const verificationTimestamp = localStorage.getItem('ageVerifiedTimestamp');
+        if (verificationTimestamp) {
+            const twentyFourHours = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+            if (Date.now() - parseInt(verificationTimestamp) > twentyFourHours) {
+                localStorage.removeItem('ageVerified');
+                localStorage.removeItem('ageVerifiedTimestamp');
+            }
+        }
+    });
+</script>
