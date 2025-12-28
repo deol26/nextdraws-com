@@ -1,0 +1,440 @@
+<!-- Enhanced Age Verification Popup -->
+<div id="ageVerificationPopup" class="age-popup-enhanced" style="display: none;">
+    <div class="age-popup-content-enhanced">
+        <!-- Background emoji particles -->
+        <div class="emoji-bg">🔞🎰💰🎲🏆</div>
+        
+        <div class="age-header-enhanced">
+            <div class="age-icon-enhanced">
+                <div class="icon-outer">🔞</div>
+            </div>
+            <h2 class="age-title">AGE VERIFICATION</h2>
+            <div class="age-subtitle">Restricted Content Ahead</div>
+        </div>
+        
+        <div class="age-body-enhanced">
+            <div class="age-message">
+                <p>This website contains <strong>lottery & gambling-related</strong> content.</p>
+                <p>Access requires you to be <span class="highlight-age">18+ years old</span>.</p>
+            </div>
+            
+            <div class="age-checkbox-enhanced">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="ageConfirmationEnhanced">
+                    <span class="checkmark"></span>
+                    <span class="checkbox-label">I confirm I am 18 years or older</span>
+                </label>
+            </div>
+            
+            <div class="age-warning-enhanced">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-text">Gambling involves risk. Play responsibly.</div>
+            </div>
+        </div>
+        
+        <div class="age-footer-enhanced">
+            <button id="ageExitBtnEnhanced" class="age-btn-exit">
+                <span class="btn-icon">🚫</span>
+                <span class="btn-text">Not 18? Exit</span>
+            </button>
+            <button id="ageConfirmBtnEnhanced" class="age-btn-confirm" disabled>
+                <span class="btn-icon">✅</span>
+                <span class="btn-text">Verify & Enter</span>
+            </button>
+        </div>
+        
+        <div class="age-legal">
+            By entering, you agree to our terms and confirm legal age.
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Enhanced Age Popup Styles */
+    .age-popup-enhanced {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        z-index: 99999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: fadeInBackdrop 0.4s ease;
+    }
+    
+    @keyframes fadeInBackdrop {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    .age-popup-content-enhanced {
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.92) 0%,
+            rgba(255, 248, 240, 0.92) 100%);
+        width: 90%;
+        max-width: 420px;
+        border-radius: 24px;
+        padding: 30px;
+        box-shadow: 
+            0 25px 60px rgba(156, 39, 176, 0.3),
+            0 10px 30px rgba(255, 152, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        border: 2px solid rgba(255, 215, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+        animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    @keyframes slideUp {
+        from { transform: translateY(30px) scale(0.95); opacity: 0; }
+        to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    
+    .emoji-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        font-size: 60px;
+        opacity: 0.05;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        pointer-events: none;
+        animation: floatEmojis 20s infinite linear;
+    }
+    
+    @keyframes floatEmojis {
+        0% { transform: translateY(0) rotate(0deg); }
+        100% { transform: translateY(-100px) rotate(360deg); }
+    }
+    
+    .age-header-enhanced {
+        text-align: center;
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .age-icon-enhanced {
+        margin-bottom: 15px;
+    }
+    
+    .icon-outer {
+        display: inline-block;
+        font-size: 50px;
+        background: linear-gradient(135deg, #ff4081, #7b1fa2);
+        padding: 15px;
+        border-radius: 50%;
+        box-shadow: 
+            0 10px 25px rgba(255, 64, 129, 0.4),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+        animation: pulseGlow 2s infinite;
+    }
+    
+    @keyframes pulseGlow {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255, 64, 129, 0.6); }
+    }
+    
+    .age-title {
+        font-size: 26px;
+        margin: 0 0 8px 0;
+        background: linear-gradient(135deg, #9c27b0, #f44336);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+    }
+    
+    .age-subtitle {
+        color: #666;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .age-body-enhanced {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .age-message {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 25px;
+        border: 1px solid rgba(156, 39, 176, 0.1);
+    }
+    
+    .age-message p {
+        margin: 0 0 10px 0;
+        font-size: 15px;
+        color: #555;
+        line-height: 1.5;
+    }
+    
+    .age-message p:last-child {
+        margin-bottom: 0;
+    }
+    
+    .highlight-age {
+        color: #9c27b0;
+        font-weight: 900;
+        background: rgba(156, 39, 176, 0.1);
+        padding: 2px 8px;
+        border-radius: 6px;
+    }
+    
+    .age-checkbox-enhanced {
+        margin-bottom: 25px;
+    }
+    
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 12px;
+        border: 2px solid rgba(156, 39, 176, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .checkbox-container:hover {
+        border-color: #9c27b0;
+        background: rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(156, 39, 176, 0.15);
+    }
+    
+    .checkbox-container input {
+        display: none;
+    }
+    
+    .checkmark {
+        width: 24px;
+        height: 24px;
+        border: 2px solid #ccc;
+        border-radius: 6px;
+        margin-right: 15px;
+        position: relative;
+        transition: all 0.3s ease;
+        background: white;
+    }
+    
+    .checkbox-container input:checked + .checkmark {
+        background: #4caf50;
+        border-color: #4caf50;
+    }
+    
+    .checkmark:after {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    
+    .checkbox-container input:checked + .checkmark:after {
+        opacity: 1;
+    }
+    
+    .checkbox-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        flex: 1;
+    }
+    
+    .age-warning-enhanced {
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 235, 59, 0.1));
+        border-radius: 12px;
+        padding: 12px 18px;
+        margin-bottom: 25px;
+        border: 1px solid rgba(255, 193, 7, 0.3);
+    }
+    
+    .warning-icon {
+        font-size: 24px;
+        margin-right: 15px;
+        animation: wobble 2s infinite;
+    }
+    
+    @keyframes wobble {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-5deg); }
+        75% { transform: rotate(5deg); }
+    }
+    
+    .warning-text {
+        font-size: 14px;
+        color: #856404;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+    
+    .age-footer-enhanced {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .age-btn-exit, .age-btn-confirm {
+        flex: 1;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 15px;
+    }
+    
+    .age-btn-exit {
+        background: linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(183, 28, 28, 0.9));
+        color: white;
+        border: 1px solid rgba(244, 67, 54, 0.4);
+    }
+    
+    .age-btn-exit:hover {
+        background: linear-gradient(135deg, rgba(244, 67, 54, 1), rgba(183, 28, 28, 1));
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(244, 67, 54, 0.3);
+    }
+    
+    .age-btn-confirm {
+        background: linear-gradient(135deg, rgba(76, 175, 80, 0.7), rgba(46, 125, 50, 0.7));
+        color: white;
+        border: 1px solid rgba(76, 175, 80, 0.4);
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+    
+    .age-btn-confirm:not(:disabled) {
+        opacity: 1;
+        cursor: pointer;
+        background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(46, 125, 50, 0.9));
+    }
+    
+    .age-btn-confirm:not(:disabled):hover {
+        background: linear-gradient(135deg, rgba(76, 175, 80, 1), rgba(46, 125, 50, 1));
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+    }
+    
+    .btn-icon {
+        font-size: 20px;
+    }
+    
+    .age-legal {
+        text-align: center;
+        font-size: 12px;
+        color: #888;
+        padding-top: 15px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        line-height: 1.4;
+    }
+    
+    /* Responsive */
+    @media (max-width: 480px) {
+        .age-popup-content-enhanced {
+            padding: 25px 20px;
+            max-width: 350px;
+        }
+        
+        .age-title {
+            font-size: 22px;
+        }
+        
+        .age-footer-enhanced {
+            flex-direction: column;
+        }
+        
+        .age-btn-exit, .age-btn-confirm {
+            padding: 14px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if already verified
+        const ageVerified = localStorage.getItem('ageVerified');
+        
+        if (!ageVerified) {
+            const agePopup = document.getElementById('ageVerificationPopupEnhanced');
+            agePopup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Get elements
+        const ageCheckbox = document.getElementById('ageConfirmationEnhanced');
+        const confirmBtn = document.getElementById('ageConfirmBtnEnhanced');
+        const exitBtn = document.getElementById('ageExitBtnEnhanced');
+        
+        // Enable confirm button when checked
+        ageCheckbox.addEventListener('change', function() {
+            confirmBtn.disabled = !this.checked;
+        });
+        
+        // Confirm button handler
+        confirmBtn.addEventListener('click', function() {
+            if (ageCheckbox.checked) {
+                localStorage.setItem('ageVerified', 'true');
+                localStorage.setItem('ageVerifiedTimestamp', Date.now());
+                
+                // Animate popup disappearance
+                const popup = document.getElementById('ageVerificationPopupEnhanced');
+                popup.style.animation = 'fadeOut 0.5s ease';
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    
+                    // Optional: Add entrance animation to main content
+                    document.querySelector('.main-header')?.style.animation = 'slideUp 0.8s ease';
+                }, 300);
+            }
+        });
+        
+        // Exit button handler
+        exitBtn.addEventListener('click', function() {
+            // Add exit animation
+            const popup = document.getElementById('ageVerificationPopupEnhanced');
+            popup.style.animation = 'fadeOut 0.5s ease';
+            
+            setTimeout(() => {
+                // Redirect to responsible gambling resource
+                window.location.href = 'https://www.begambleaware.org/';
+            }, 400);
+        });
+        
+        // Auto-clear after 24 hours
+        const verificationTimestamp = localStorage.getItem('ageVerifiedTimestamp');
+        if (verificationTimestamp) {
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+            if (Date.now() - parseInt(verificationTimestamp) > twentyFourHours) {
+                localStorage.removeItem('ageVerified');
+                localStorage.removeItem('ageVerifiedTimestamp');
+            }
+        }
+    });
+</script>
