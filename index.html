@@ -394,14 +394,17 @@
 
         .product-footer {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            width: 100%;
         }
 
         .product-buttons {
             display: flex;
             flex-direction: column;
             gap: 8px;
+            width: 100%;
         }
 
         .product-price {
@@ -1218,6 +1221,121 @@
                 padding: 20px;
             }
         }
+
+        /* ===== LICENCE KEYS PANEL ===== */
+        #licenceKeysPanel {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.3s ease;
+        }
+        #licenceKeysPanel h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        #licenceKeysPanel p.lk-note {
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin-bottom: 18px;
+        }
+        .licence-table-wrapper {
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 500px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .licence-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 820px;
+            font-size: 0.88rem;
+        }
+        .licence-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #0f172a;
+        }
+        .licence-table th {
+            padding: 14px 12px;
+            text-align: center;
+            color: var(--primary);
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+            white-space: nowrap;
+        }
+        .licence-table th:nth-child(1) { width: 36px; }
+        .licence-table th:nth-child(2) { text-align: left; }
+        .licence-table th:nth-child(3) { text-align: left; }
+        .licence-table th .price-label {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--success);
+        }
+        .licence-table tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .licence-table tbody tr:hover { background: rgba(99,102,241,0.06); }
+        .licence-table td {
+            padding: 10px 12px;
+            text-align: center;
+            color: var(--light);
+            vertical-align: middle;
+        }
+        .licence-table td:nth-child(2) { text-align: left; font-weight: 600; }
+        .licence-table td:nth-child(3) {
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--success);
+            letter-spacing: 0.04em;
+        }
+        .lk-price-btn {
+            background: rgba(99,102,241,0.12);
+            border: 1.5px solid var(--border);
+            color: var(--light);
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .lk-price-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .lk-price-btn.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(99,102,241,0.5);
+        }
+        .lk-buy-btn {
+            background: var(--success);
+            border: none;
+            color: #fff;
+            border-radius: 8px;
+            padding: 7px 16px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .lk-buy-btn.ready {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .lk-buy-btn.ready:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -1314,6 +1432,36 @@
             <h2 class="section-title">Premium Trading Tools</h2>
             <p class="section-subtitle">Choose from our collection of advanced indicators and automated strategies for NinjaTrader and TradingView platforms.</p>
             
+            <div style="text-align: center; margin-bottom: 18px;">
+                <button id="licenceKeysBtn" class="filter-btn" data-filter="licence-keys" style="font-size: 1.1rem; padding: 14px 36px; font-weight: 700; letter-spacing: 0.05em;">🔑 Get Licence Keys Here</button>
+            </div>
+
+            <!-- Licence Keys Panel -->
+            <div id="licenceKeysPanel" style="display:none;">
+                <h3>🔑 Product Licence Keys & Pricing</h3>
+                <p class="lk-note">Select a duration for any product, then click Buy to purchase your licence.</p>
+                <div class="licence-table-wrapper">
+                    <table class="licence-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product</th>
+                                <th>Licence Key</th>
+                                <th>Weekly<span class="price-label">$20.00</span></th>
+                                <th>Monthly<span class="price-label">$84.00</span></th>
+                                <th>3 Monthly<span class="price-label">$250.00</span></th>
+                                <th>6 Monthly<span class="price-label">$500.00</span></th>
+                                <th>Yearly<span class="price-label">$1,000.00</span></th>
+                                <th>Buy</th>
+                            </tr>
+                        </thead>
+                        <tbody id="licenceTableBody">
+                            <tr><td colspan="8" style="text-align:center; color:var(--gray); padding:20px;">Loading products...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="filters">
                 <button class="filter-btn active" data-filter="all">All Products</button>
                 <button class="filter-btn" data-filter="ninjatrader">NinjaTrader</button>
@@ -3117,8 +3265,121 @@
                 category: "education",
                 image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
                 features: ["Basic trading concepts", "Market understanding", "Risk management basics", "Trading terminology", "Getting started guide", "Free resources access"]
+            },
+            {
+                id: 65,
+                name: "Free Basic Volume Profile",
+                description: "Essential volume profile tool for understanding price levels and volume distribution.",
+                price: 0.00,
+                category: "free",
+                image: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=400&h=300&fit=crop",
+                features: ["Basic volume analysis", "POC identification", "Value area calculations", "Free updates"],
+                downloadLink: "https://github.com/deol26/nextdraws-com/releases/download/free-tools/BasicVolumeProfile.zip"
+            },
+            {
+                id: 66,
+                name: "Free Fibonacci Retracement",
+                description: "Simple yet powerful Fibonacci retracement tool for identifying support and resistance levels.",
+                price: 0.00,
+                category: "free",
+                image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=400&h=300&fit=crop",
+                features: ["Auto Fibonacci levels", "Customizable colors", "Multi-timeframe support", "Easy to use"],
+                downloadLink: "https://github.com/deol26/nextdraws-com/releases/download/free-tools/FibonacciRetracement.zip"
+            },
+            {
+                id: 67,
+                name: "Free RSI Indicator",
+                description: "Classic RSI indicator with overbought/oversold alerts for quick trade setup identification.",
+                price: 0.00,
+                category: "free",
+                image: "https://images.unsplash.com/photo-1641900265054-63dd0e4d8dc1?w=400&h=300&fit=crop",
+                features: ["RSI calculation", "Alert levels", "Divergence detection", "Chart overlay"],
+                downloadLink: "https://github.com/deol26/nextdraws-com/releases/download/free-tools/RSIIndicator.zip"
+            },
+            {
+                id: 68,
+                name: "Free MACD Crossover",
+                description: "Trend following MACD indicator with crossover signals for trend confirmation.",
+                price: 0.00,
+                category: "free",
+                image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=300&fit=crop",
+                features: ["MACD calculation", "Signal line crossovers", "Histogram display", "Customizable periods"],
+                downloadLink: "https://github.com/deol26/nextdraws-com/releases/download/free-tools/MACDCrossover.zip"
+            },
+            {
+                id: 69,
+                name: "Free Moving Averages Bundle",
+                description: "Simple and exponential moving averages with golden cross/death cross alerts.",
+                price: 0.00,
+                category: "free",
+                image: "https://images.unsplash.com/photo-1611095790444-1dfa35e37b52?w=400&h=300&fit=crop",
+                features: ["SMA & EMA", "Golden cross alerts", "Custom periods", "Trend confirmation"],
+                downloadLink: "https://github.com/deol26/nextdraws-com/releases/download/free-tools/MovingAverages.zip"
+            },
+            {
+                id: 70,
+                name: "Free Support & Resistance",
+                description: "Automatic support and resistance level detection for swing and day trading.",
+                price: 0.00,
+                category: "free",
+                image: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?w=400&h=300&fit=crop",
+                features: ["Auto S/R detection", "Level strength indicator", "Breakout alerts", "Historical levels"],
+                downloadLink: "https://github.com/deol26/nextdraws-com/releases/download/free-tools/SupportResistance.zip"
+            },
+            {
+                id: 71,
+                name: "Free ATR Volatility Tool",
+                description: "Average True Range volatility indicator for position sizing and stop loss placement.",
+                price: 0.00,
+                category: "free",
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+                features: ["ATR calculation", "Volatility bands", "Risk calculator", "Customizable settings"],
+                downloadLink: "https://github.com/deol26/nextdraws-com/releases/download/free-tools/ATRVolatility.zip"
+            },
+            {
+                id: 72,
+                name: "Free Stochastic Oscillator",
+                description: "Momentum indicator for identifying oversold and overbought market conditions.",
+                price: 0.00,
+                category: "free",
+                image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=400&h=300&fit=crop",
+                features: ["K and D lines", "Overbought/oversold", "Divergence detection", "Alert system"],
+                downloadLink: "https://github.com/deol26/nextdraws-com/releases/download/free-tools/Stochastic.zip"
+            },
+            {
+                id: 73,
+                name: "Free Bollinger Bands",
+                description: "Volatility-based bands for identifying breakout opportunities and mean reversion setups.",
+                price: 0.00,
+                category: "free",
+                image: "https://images.unsplash.com/photo-1607734564149-7acef235e2a8?w=400&h=300&fit=crop",
+                features: ["BB calculation", "Squeeze detection", "Breakout alerts", "Customizable periods"],
+                downloadLink: "https://github.com/deol26/nextdraws-com/releases/download/free-tools/BollingerBands.zip"
+            },
+            {
+                id: 74,
+                name: "Free CCI Indicator",
+                description: "Commodity Channel Index for identifying cyclical trends and reversals in any market.",
+                price: 0.00,
+                category: "free",
+                image: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?w=400&h=300&fit=crop",
+                features: ["CCI calculation", "Cycle detection", "Threshold levels", "Multi-timeframe"],
+                downloadLink: "https://github.com/deol26/nextdraws-com/releases/download/free-tools/CCIIndicator.zip"
             }
         ];
+
+        // Add payment plans to products priced at $1000
+        products.forEach(product => {
+            if (product.price === 1000.00 && !product.paymentPlans) {
+                product.paymentPlans = [
+                    { name: "Weekly", price: 20.00, period: "7 days", stripeLink: "https://buy.stripe.com/test_7sYfZa3ntacF9vt13AeAg01" },
+                    { name: "Monthly", price: 84.00, period: "30 days", stripeLink: "https://buy.stripe.com/test_7sY5kw9LR70t6jh13AeAg02" },
+                    { name: "3 Monthly", price: 250.00, period: "90 days", stripeLink: "https://buy.stripe.com/test_eVqaEQaPV3OhbDB27EeAg03" },
+                    { name: "6 Monthly", price: 500.00, period: "180 days", stripeLink: "https://buy.stripe.com/test_14A4gs4rxfwZePNh2yeAg04" },
+                    { name: "Yearly", price: 1000.00, period: "365 days", stripeLink: "https://buy.stripe.com/test_5kQ8wIcY398BdLJh2yeAg05" }
+                ];
+            }
+        });
 
         // Cart State
         let cart = JSON.parse(localStorage.getItem('tradingCart')) || [];
@@ -3163,10 +3424,279 @@
                 ? products 
                 : products.filter(product => product.category === filter);
             
+            // Special rendering for Free Tools - Table Format
+            if (filter === 'free') {
+                productsGrid.style.display = 'block';
+                
+                // Create container
+                const container = document.createElement('div');
+                container.style.cssText = `
+                    background: var(--card-bg);
+                    border: 1px solid var(--border);
+                    border-radius: 16px;
+                    padding: 24px;
+                    margin-bottom: 30px;
+                `;
+                
+                // Header
+                const header = document.createElement('div');
+                header.style.cssText = `
+                    margin-bottom: 20px;
+                `;
+                header.innerHTML = `
+                    <h3 style="color: var(--primary); font-size: 1.2rem; margin-bottom: 6px;">📥 Free Tools & Indicators</h3>
+                    <p style="color: var(--gray); font-size: 0.85rem;">Download and use these tools at no cost. Perfect for traders of all levels.</p>
+                `;
+                container.appendChild(header);
+                
+                // Search Section
+                const searchSection = document.createElement('div');
+                searchSection.style.cssText = `
+                    margin-bottom: 20px;
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                `;
+                searchSection.innerHTML = `
+                    <div style="flex: 1; position: relative;">
+                        <i class="fas fa-search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--gray);"></i>
+                        <input type="text" id="freeToolsSearch" placeholder="Search by tool name or keyword..." style="
+                            width: 100%;
+                            padding: 10px 12px 10px 38px;
+                            background: rgba(99, 102, 241, 0.1);
+                            border: 1.5px solid var(--border);
+                            color: var(--light);
+                            border-radius: 8px;
+                            font-size: 0.9rem;
+                            transition: all 0.2s;
+                            font-family: 'Inter', sans-serif;
+                        "/>
+                    </div>
+                    <button id="clearSearchBtn" style="
+                        padding: 10px 16px;
+                        background: rgba(239, 68, 68, 0.15);
+                        border: 1.5px solid var(--danger);
+                        color: var(--danger);
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        transition: all 0.2s;
+                        display: none;
+                    ">Clear Search</button>
+                `;
+                container.appendChild(searchSection);
+                
+                // Create table wrapper
+                const tableWrapper = document.createElement('div');
+                tableWrapper.style.cssText = `
+                    overflow-x: auto;
+                    border-radius: 10px;
+                    border: 1px solid var(--border);
+                `;
+                
+                // Create table
+                const table = document.createElement('table');
+                table.style.cssText = `
+                    width: 100%;
+                    border-collapse: collapse;
+                    font-size: 0.95rem;
+                `;
+                
+                // Table Header
+                const thead = document.createElement('thead');
+                thead.style.cssText = `
+                    position: sticky;
+                    top: 0;
+                    z-index: 2;
+                    background: #0f172a;
+                `;
+                thead.innerHTML = `
+                    <tr>
+                        <th style="padding: 14px 12px; text-align: center; color: var(--primary); font-weight: 700; border-bottom: 2px solid var(--border); width: 40px;">#</th>
+                        <th style="padding: 14px 12px; text-align: left; color: var(--primary); font-weight: 700; border-bottom: 2px solid var(--border);">Tool Name</th>
+                        <th style="padding: 14px 12px; text-align: left; color: var(--primary); font-weight: 700; border-bottom: 2px solid var(--border);">Description</th>
+                        <th style="padding: 14px 12px; text-align: center; color: var(--primary); font-weight: 700; border-bottom: 2px solid var(--border);">Features</th>
+                        <th style="padding: 14px 12px; text-align: center; color: var(--primary); font-weight: 700; border-bottom: 2px solid var(--border);">Download</th>
+                    </tr>
+                `;
+                table.appendChild(thead);
+                
+                // Table Body
+                const tbody = document.createElement('tbody');
+                tbody.style.cssText = 'display: table-row-group;';
+                
+                filteredProducts.forEach((product, idx) => {
+                    const tr = document.createElement('tr');
+                    tr.style.cssText = `
+                        border-bottom: 1px solid var(--border);
+                        transition: background 0.2s;
+                    `;
+                    tr.onmouseover = () => tr.style.background = 'rgba(99,102,241,0.06)';
+                    tr.onmouseout = () => tr.style.background = '';
+                    
+                    // Features as tags
+                    const featuresTags = product.features.slice(0, 2).map(f => 
+                        `<span style="display: inline-block; background: rgba(16, 185, 129, 0.15); color: var(--success); padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; margin-right: 4px; margin-bottom: 4px;">
+                            ${f.replace(/FREE/g, '').trim()}
+                        </span>`
+                    ).join('');
+                    
+                    tr.innerHTML = `
+                        <td style="padding: 14px 12px; text-align: center; color: var(--gray); font-size: 0.85rem;">${idx + 1}</td>
+                        <td style="padding: 14px 12px; text-align: left; font-weight: 600; color: var(--light);">${product.name}</td>
+                        <td style="padding: 14px 12px; text-align: left; color: var(--gray); font-size: 0.9rem; max-width: 300px;">${product.description}</td>
+                        <td style="padding: 14px 12px; text-align: center; color: var(--light);">
+                            <div style="display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;">
+                                ${featuresTags}
+                            </div>
+                        </td>
+                        <td style="padding: 14px 12px; text-align: center;">
+                            <a href="${product.downloadLink}" target="_blank" style="
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 6px;
+                                background: linear-gradient(135deg, #10b981, #059669);
+                                color: white;
+                                padding: 8px 16px;
+                                border-radius: 8px;
+                                text-decoration: none;
+                                font-weight: 600;
+                                font-size: 0.85rem;
+                                transition: all 0.2s;
+                            " 
+                            onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(16, 185, 129, 0.3)';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                
+                table.appendChild(tbody);
+                tableWrapper.appendChild(table);
+                container.appendChild(tableWrapper);
+                productsGrid.appendChild(container);
+                
+                // Search Functionality
+                const searchInput = document.getElementById('freeToolsSearch');
+                const clearBtn = document.getElementById('clearSearchBtn');
+                
+                if (searchInput && clearBtn) {
+                    // Search input event listener
+                    searchInput.addEventListener('input', function() {
+                        const searchTerm = this.value.toLowerCase().trim();
+                        const rows = tbody.querySelectorAll('tr');
+                        let visibleCount = 0;
+                        
+                        rows.forEach(row => {
+                            const toolName = row.cells[1]?.textContent.toLowerCase() || '';
+                            const description = row.cells[2]?.textContent.toLowerCase() || '';
+                            
+                            if (toolName.includes(searchTerm) || description.includes(searchTerm) || searchTerm === '') {
+                                row.style.display = '';
+                                visibleCount++;
+                            } else {
+                                row.style.display = 'none';
+                            }
+                        });
+                        
+                        // Show/hide clear button
+                        clearBtn.style.display = searchTerm ? 'block' : 'none';
+                        
+                        // Show "No results" message if needed
+                        let noResultsRow = tbody.querySelector('tr.no-results');
+                        if (visibleCount === 0 && searchTerm) {
+                            if (!noResultsRow) {
+                                noResultsRow = document.createElement('tr');
+                                noResultsRow.className = 'no-results';
+                                noResultsRow.innerHTML = `<td colspan="5" style="padding: 30px; text-align: center; color: var(--gray);">
+                                    <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 10px; display: block; opacity: 0.5;"></i>
+                                    No tools found matching "${searchTerm}"
+                                </td>`;
+                                tbody.appendChild(noResultsRow);
+                            }
+                        } else if (noResultsRow) {
+                            noResultsRow.remove();
+                        }
+                    });
+                    
+                    // Clear button event listener
+                    clearBtn.addEventListener('click', function() {
+                        searchInput.value = '';
+                        searchInput.focus();
+                        searchInput.dispatchEvent(new Event('input'));
+                    });
+                    
+                    // Keyboard shortcut: Focus search on Ctrl/Cmd + F
+                    document.addEventListener('keydown', function(e) {
+                        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                            const isInFreeTools = document.getElementById('freeToolsSearch');
+                            if (isInFreeTools && filter === 'free') {
+                                e.preventDefault();
+                                searchInput.focus();
+                            }
+                        }
+                    });
+                }
+                
+                return;
+            }
+            
+            // Default Card Rendering for other categories
+            productsGrid.style.display = 'grid';
+            
+            // Create search bar for all/category views
+            const searchContainer = document.createElement('div');
+            searchContainer.style.cssText = `
+                grid-column: 1 / -1;
+                margin-bottom: 30px;
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            `;
+            searchContainer.innerHTML = `
+                <div style="flex: 1; position: relative;">
+                    <i class="fas fa-search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--gray);"></i>
+                    <input type="text" id="productsSearch" placeholder="Search by product name, category, or features..." style="
+                        width: 100%;
+                        padding: 12px 12px 12px 40px;
+                        background: rgba(99, 102, 241, 0.1);
+                        border: 1.5px solid var(--border);
+                        color: var(--light);
+                        border-radius: 8px;
+                        font-size: 0.95rem;
+                        transition: all 0.2s;
+                        font-family: 'Inter', sans-serif;
+                    "/>
+                </div>
+                <button id="clearProductsSearch" style="
+                    padding: 12px 18px;
+                    background: rgba(239, 68, 68, 0.15);
+                    border: 1.5px solid var(--danger);
+                    color: var(--danger);
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    transition: all 0.2s;
+                    display: none;
+                ">Clear Search</button>
+            `;
+            productsGrid.appendChild(searchContainer);
+            
+            // Store product cards for filtering
+            const productCardsMap = new Map();
+            
             filteredProducts.forEach(product => {
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
                 productCard.setAttribute('data-category', product.category);
+                productCard.setAttribute('data-product-id', product.id);
+                productCard.setAttribute('data-product-name', product.name.toLowerCase());
+                productCard.setAttribute('data-product-desc', product.description.toLowerCase());
+                productCard.setAttribute('data-search-text', `${product.name} ${product.description} ${product.category}`.toLowerCase());
 
                 // Use local image if available, else fallback to Unsplash
                 let imgSrc = product.image;
@@ -3177,8 +3707,8 @@
                 }
 
                 productCard.innerHTML = `
-                    <div class="product-badge ${product.category === 'ninjatrader' ? 'badge-ninjatrader' : product.category === 'tradingview' ? 'badge-tradingview' : 'badge-ninjatrader'}">
-                        ${product.category === 'ninjatrader' ? 'NinjaTrader' : product.category === 'tradingview' ? 'TradingView' : 'Strategy'}
+                    <div class="product-badge ${product.category === 'ninjatrader' ? 'badge-ninjatrader' : product.category === 'tradingview' ? 'badge-tradingview' : 'badge-ninjatrader'}" style="${product.category === 'free' ? 'background: linear-gradient(135deg, #10b981, #059669); color: white;' : ''}">
+                        ${product.category === 'ninjatrader' ? 'NinjaTrader' : product.category === 'tradingview' ? 'TradingView' : product.category === 'free' ? 'Free Tool' : 'Strategy'}
                     </div>
                     <div class="product-img" style="padding:0;">
                         <img src="${imgSrc}" alt="${product.name} chart" style="width:100%;height:200px;object-fit:cover;display:block;border-radius:0;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=300&fit=crop';">
@@ -3190,15 +3720,43 @@
                             ${product.features.map(feature => `<li><i class="fas fa-check-circle"></i> ${feature.replace(/FREE/g, '<span style="animation: blink 1s infinite; color: var(--success); font-weight: 900;">FREE</span>')}</li>`).join('')}
                         </ul>
                         <div class="product-footer">
-                            <div class="product-price">
-                                ${product.price === 0.00 ? 'FREE' : `$${product.price.toFixed(2)}`}
-                                ${product.price !== 0.00 ? `<span>$${product.originalPrice.toFixed(2)}</span>` : ''}
-                            </div>
                             <div class="product-buttons">
-                                ${product.price === 0.00 ? 
+                                ${product.category === 'free' && product.downloadLink ? 
+                                    `<a href="${product.downloadLink}" target="_blank" class="buy-now" style="background: linear-gradient(135deg, #10b981, #059669); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                        <i class="fas fa-download"></i> Download
+                                    </a>` :
+                                    product.price === 0.00 ? 
                                     `<button class="enroll-btn" onclick="document.getElementById('checkout').scrollIntoView({behavior: 'smooth'});">
                                         Enroll Now
                                     </button>` :
+                                    product.paymentPlans ? 
+                                    `<div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+                                        ${product.paymentPlans.map((plan, idx) => {
+                                            const colors = [
+                                                { bg: '#10b981', hover: '#059669' },     // Weekly - Green
+                                                { bg: '#3b82f6', hover: '#2563eb' },     // Monthly - Blue
+                                                { bg: '#a855f7', hover: '#9333ea' },     // 3 Monthly - Purple
+                                                { bg: '#f97316', hover: '#ea580c' },     // 6 Monthly - Orange
+                                                { bg: '#ef4444', hover: '#dc2626' }      // Yearly - Red
+                                            ];
+                                            const color = colors[idx % colors.length];
+                                            return `
+                                            <button class="payment-plan-btn" data-id="${product.id}" data-plan="${plan.name}" data-price="${plan.price}" data-stripe-link="${plan.stripeLink}" style="
+                                                background: ${color.bg};
+                                                border: none;
+                                                color: white;
+                                                padding: 10px 14px;
+                                                border-radius: 8px;
+                                                cursor: pointer;
+                                                font-weight: 700;
+                                                font-size: 0.9rem;
+                                                transition: all 0.2s ease;
+                                                opacity: 1;
+                                            " onmouseover="this.style.background='${color.hover}'; this.style.transform='scale(1.02)';" onmouseout="this.style.background='${color.bg}'; this.style.transform='scale(1);">
+                                                ${plan.name} - $${plan.price.toFixed(2)}
+                                            </button>
+                                        `}).join('')}
+                                    </div>` :
                                     `<button class="buy-now" data-id="${product.id}">
                                         Buy
                                     </button>
@@ -3210,9 +3768,77 @@
                         </div>
                     </div>
                 `;
-
+                
+                productCardsMap.set(product.id, productCard);
                 productsGrid.appendChild(productCard);
             });
+            
+            // Payment plan button click handlers
+            document.querySelectorAll('.payment-plan-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const stripeLink = this.getAttribute('data-stripe-link');
+                    if (stripeLink && stripeLink.trim() !== '') {
+                        window.location.href = stripeLink;
+                    } else {
+                        alert('Payment link coming soon! Please check back later.');
+                    }
+                });
+            });
+            
+            // Search functionality for products
+            const searchInput = document.getElementById('productsSearch');
+            const clearBtn = document.getElementById('clearProductsSearch');
+            
+            if (searchInput && clearBtn) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    const cards = productsGrid.querySelectorAll('.product-card');
+                    let visibleCount = 0;
+                    
+                    cards.forEach(card => {
+                        const searchText = card.getAttribute('data-search-text') || '';
+                        
+                        if (searchText.includes(searchTerm) || searchTerm === '') {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show/hide clear button
+                    clearBtn.style.display = searchTerm ? 'block' : 'none';
+                    
+                    // Show "No results" message if needed
+                    let noResultsMsg = document.getElementById('noProductsResults');
+                    if (visibleCount === 0 && searchTerm && !noResultsMsg) {
+                        noResultsMsg = document.createElement('div');
+                        noResultsMsg.id = 'noProductsResults';
+                        noResultsMsg.style.cssText = `
+                            grid-column: 1 / -1;
+                            padding: 60px 20px;
+                            text-align: center;
+                            color: var(--gray);
+                        `;
+                        noResultsMsg.innerHTML = `
+                            <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px; display: block; opacity: 0.5;"></i>
+                            <h3 style="color: var(--light); margin-bottom: 10px;">No products found</h3>
+                            <p>We couldn't find any products matching "${searchTerm}"</p>
+                        `;
+                        productsGrid.appendChild(noResultsMsg);
+                    } else if (visibleCount > 0 && noResultsMsg) {
+                        noResultsMsg.remove();
+                    }
+                });
+                
+                // Clear button functionality
+                clearBtn.addEventListener('click', function() {
+                    searchInput.value = '';
+                    searchInput.focus();
+                    searchInput.dispatchEvent(new Event('input'));
+                });
+            }
+            
             
             // Add event listeners to buy-now buttons
             document.querySelectorAll('.buy-now').forEach(button => {
@@ -3840,6 +4466,112 @@
                 });
             }
         }
+
+        // ===== LICENCE KEYS PANEL =====
+        (function() {
+            const GITHUB_RAW = 'https://raw.githubusercontent.com/deol26/nextdraws-com/main/products.json';
+            const PRICES = [
+                { label: 'Weekly', amount: '$20.00', key: 'weekly', stripeLink: 'https://buy.stripe.com/test_7sYfZa3ntacF9vt13AeAg01' },
+                { label: 'Monthly', amount: '$84.00', key: 'monthly', stripeLink: 'https://buy.stripe.com/test_7sY5kw9LR70t6jh13AeAg02' },
+                { label: '3 Monthly', amount: '$250.00', key: 'threeMonth', stripeLink: 'https://buy.stripe.com/test_eVqaEQaPV3OhbDB27EeAg03' },
+                { label: '6 Monthly', amount: '$500.00', key: 'sixMonth', stripeLink: 'https://buy.stripe.com/test_14A4gs4rxfwZePNh2yeAg04' },
+                { label: 'Yearly', amount: '$1,000.00', key: 'yearly', stripeLink: 'https://buy.stripe.com/test_5kQ8wIcY398BdLJh2yeAg05' }
+            ];
+
+            // Row selection state: { rowId -> selectedPriceKey }
+            const rowSelection = {};
+
+            // Fetch licence keys from GitHub (falls back to products array if offline)
+            async function loadLicenceData() {
+                try {
+                    const res = await fetch(GITHUB_RAW + '?t=' + Date.now());
+                    if (!res.ok) throw new Error('fetch failed');
+                    return await res.json();
+                } catch (e) {
+                    // Fallback: use products array with placeholder keys
+                    return {
+                        products: products.map(p => ({
+                            id: p.id,
+                            name: p.name,
+                            licenceKey: 'NDT-' + String(p.id).padStart(3,'0') + '-XXXX-XXXX'
+                        }))
+                    };
+                }
+            }
+
+            function renderTable(data) {
+                const tbody = document.getElementById('licenceTableBody');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                data.products.forEach((item, idx) => {
+                    const tr = document.createElement('tr');
+                    tr.setAttribute('data-id', item.id);
+
+                    // Price buttons HTML
+                    const priceBtns = PRICES.map(p =>
+                        `<td><button class="lk-price-btn" data-rowid="${item.id}" data-price="${p.key}" data-label="${p.label}" data-amount="${p.amount}" data-stripe-link="${p.stripeLink}">${p.amount}</button></td>`
+                    ).join('');
+
+                    tr.innerHTML = `
+                        <td style="color:var(--gray);font-size:0.8rem;">${idx + 1}</td>
+                        <td>${item.name}</td>
+                        <td>${item.licenceKey}</td>
+                        ${priceBtns}
+                        <td><button class="lk-buy-btn" data-rowid="${item.id}">Buy</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                // Price button click — select one per row
+                tbody.querySelectorAll('.lk-price-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const rowId = this.dataset.rowid;
+                        // Deselect all in same row
+                        tbody.querySelectorAll(`.lk-price-btn[data-rowid="${rowId}"]`).forEach(b => b.classList.remove('selected'));
+                        this.classList.add('selected');
+                        rowSelection[rowId] = { key: this.dataset.price, label: this.dataset.label, amount: this.dataset.amount, stripeLink: this.dataset.stripeLink };
+                        // Enable buy button
+                        const buyBtn = tbody.querySelector(`.lk-buy-btn[data-rowid="${rowId}"]`);
+                        if (buyBtn) buyBtn.classList.add('ready');
+                    });
+                });
+
+                // Buy button click
+                tbody.querySelectorAll('.lk-buy-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const rowId = this.dataset.rowid;
+                        const sel = rowSelection[rowId];
+                        const product = data.products.find(p => String(p.id) === String(rowId));
+                        if (!sel || !product) return;
+                        if (sel.stripeLink && sel.stripeLink.trim() !== '') {
+                            window.location.href = sel.stripeLink;
+                        } else {
+                            alert(`Purchase selected:\n\nProduct: ${product.name}\nLicence Key: ${product.licenceKey}\nPlan: ${sel.label} — ${sel.amount}\n\nPayment link coming soon!`);
+                        }
+                    });
+                });
+            }
+
+            // Toggle panel on button click
+            const licenceBtn = document.getElementById('licenceKeysBtn');
+            const licencePanel = document.getElementById('licenceKeysPanel');
+            let loaded = false;
+
+            if (licenceBtn && licencePanel) {
+                licenceBtn.addEventListener('click', async function() {
+                    const isVisible = licencePanel.style.display !== 'none';
+                    licencePanel.style.display = isVisible ? 'none' : 'block';
+                    licenceBtn.style.background = isVisible ? '' : 'var(--primary)';
+                    licenceBtn.style.color = isVisible ? '' : '#fff';
+
+                    if (!isVisible && !loaded) {
+                        loaded = true;
+                        const data = await loadLicenceData();
+                        renderTable(data);
+                    }
+                });
+            }
+        })();
     </script>
 </body>
 </html>
